@@ -10,32 +10,29 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/images/test.svg').default,
+    title: 'Flask',
+    Svg: require('@site/static/img/python2.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Aquitectura de Microservicios, basada en Python, con principios de Clean Architecture: principios SOLID, TDD y DDD.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/images/test2.svg').default,
+    title: 'Ecosistema GitHub',
+    Svg: require('@site/static/img/github2.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Repositorio privado, metodología ágil, estándares de calidad y prácticas DevSecOps.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Cloud Native',
+    Svg: require('@site/static/img/kubernetes.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Ecosistema cloud con AWS y Kubernetes. Ambientes <i>Dev</i> y <i>QA</i>. Altos estándares de seguridad y monitoreo basados en RBAC, <a href='https://www.cisecurity.org/benchmark/kubernetes' target='_blank'>Normativas CIS</a>, networking e IAM Policies.
       </>
     ),
   },
