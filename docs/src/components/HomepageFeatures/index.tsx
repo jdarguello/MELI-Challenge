@@ -14,7 +14,7 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/python2.svg').default,
     description: (
       <>
-        Aquitectura de Microservicios, basada en Python, con principios de Clean Architecture: principios SOLID, TDD y DDD.
+        Aquitectura de Microservicios, basado en Python, con principios de Clean Architecture: principios SOLID, TDD y DDD.
       </>
     ),
   },
