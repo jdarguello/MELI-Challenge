@@ -1,8 +1,12 @@
 # MELI-Challenge
 
-Construcción de un desarrollo backend, basado en microservicios, que permita crear, eliminar y modificar persmisos de usuarios en una aplicación.
+Backend con _Arquitectura de Microservicios_ que permite crear, eliminar y modificar persmisos de usuarios en una aplicación web y/o móvil. 
 
-## Requerimientos Funcionales
+## 1. Requerimientos
+
+Respecto a lo definido en la guía `IAM - Challenge TL Backend.pdf`, se extraen los requerimientos enumerados a continuación.
+
+### 1.1. Requerimientos Funcionales
 
 * Endpoint que genere un nuevo permiso. Debe incluir:
     * Nombre
@@ -12,9 +16,16 @@ Construcción de un desarrollo backend, basado en microservicios, que permita cr
 * Endpoint que permita modificar atributos de un rol.
 * Endpoint que permita consultar los roles disponibles.
 * Endpoint que permita asociar un rol (permiso) con un usuario.
+* Integración con OAuth/IDP para Autenticación Multi-Factor.
 
-## Requerimientos No-Funcionales
+### 1.2. Requerimientos No-Funcionales
 
 * Lenguaje base: Golang (Chi o Gorilla Mux) o Python (Flask).
 * Manejo de ambientes CI/CD.
 * Integración con OAuth/IDP
+
+## 2. Arquitectura Cloud
+
+![](./assets/cloud-general.png)
+
+Figura
