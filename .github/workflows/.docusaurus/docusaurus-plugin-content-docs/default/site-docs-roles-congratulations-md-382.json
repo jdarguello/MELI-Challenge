@@ -1,0 +1,26 @@
+{
+  "id": "roles/congratulations",
+  "title": "Congratulations!",
+  "description": "You have just learned the basics of Docusaurus and made some changes to the initial template.",
+  "source": "@site/docs/roles/congratulations.md",
+  "sourceDirName": "roles",
+  "slug": "/roles/congratulations",
+  "permalink": "/MELI-Challenge/docs/roles/congratulations",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deploy your site",
+    "permalink": "/MELI-Challenge/docs/roles/deploy-your-site"
+  },
+  "next": {
+    "title": "Tutorial - Basics",
+    "permalink": "/MELI-Challenge/docs/category/tutorial---basics-1"
+  }
+}

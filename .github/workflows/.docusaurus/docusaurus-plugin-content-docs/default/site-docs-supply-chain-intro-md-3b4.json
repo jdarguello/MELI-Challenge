@@ -1,0 +1,19 @@
+{
+  "id": "supply-chain/intro",
+  "title": "intro",
+  "description": "",
+  "source": "@site/docs/supply-chain/intro.md",
+  "sourceDirName": "supply-chain",
+  "slug": "/supply-chain/intro",
+  "permalink": "/MELI-Challenge/docs/supply-chain/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Translate your site",
+    "permalink": "/MELI-Challenge/docs/tutorial-extras/translate-your-site"
+  }
+}

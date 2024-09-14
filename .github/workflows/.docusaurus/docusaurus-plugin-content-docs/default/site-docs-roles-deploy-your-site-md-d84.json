@@ -1,0 +1,26 @@
+{
+  "id": "roles/deploy-your-site",
+  "title": "Deploy your site",
+  "description": "Docusaurus is a static-site-generator (also called Jamstack).",
+  "source": "@site/docs/roles/deploy-your-site.md",
+  "sourceDirName": "roles",
+  "slug": "/roles/deploy-your-site",
+  "permalink": "/MELI-Challenge/docs/roles/deploy-your-site",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Markdown Features",
+    "permalink": "/MELI-Challenge/docs/roles/markdown-features"
+  },
+  "next": {
+    "title": "Congratulations!",
+    "permalink": "/MELI-Challenge/docs/roles/congratulations"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "sdlc/tutorial-basics/create-a-document",
+  "title": "Create a Document",
+  "description": "Documents are groups of pages connected through:",
+  "source": "@site/docs/sdlc/tutorial-basics/create-a-document.md",
+  "sourceDirName": "sdlc/tutorial-basics",
+  "slug": "/sdlc/tutorial-basics/create-a-document",
+  "permalink": "/MELI-Challenge/docs/sdlc/tutorial-basics/create-a-document",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "sdlcSidebar",
+  "previous": {
+    "title": "Create a Page",
+    "permalink": "/MELI-Challenge/docs/sdlc/tutorial-basics/create-a-page"
+  },
+  "next": {
+    "title": "Create a Blog Post",
+    "permalink": "/MELI-Challenge/docs/sdlc/tutorial-basics/create-a-blog-post"
+  }
+}

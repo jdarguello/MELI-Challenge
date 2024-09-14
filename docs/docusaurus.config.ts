@@ -5,10 +5,10 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Docs MeLi Challenge',
   tagline: 'Por Juan David Argüello',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/meli-logo.png',
 
   // Set the production url of your site here
-  url: 'https://jdarguello.github.io',
+  url: 'https://jdarguello.github.io/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/MELI-Challenge/',
@@ -61,21 +61,33 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/meli-logo.png',
     navbar: {
       title: 'MeLi',
       logo: {
         alt: 'MeLi Logo',
-        src: 'images/meli-logo.png',
+        src: 'img/meli-logo.png',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'sdlcSidebar',
           position: 'left',
-          label: 'Docs',
+          label: 'SDLC',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          type: 'docSidebar',
+          sidebarId: 'supplySidebar',
+          position: 'left',
+          label: 'Supply Chain',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'cloudSidebar',
+          position: 'left',
+          label: 'Cloud Native',
+        },
+        //{to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/jdarguello/MELI-Challenge',
           label: 'GitHub',

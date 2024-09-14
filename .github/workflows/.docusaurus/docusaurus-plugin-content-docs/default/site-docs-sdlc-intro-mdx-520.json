@@ -1,0 +1,22 @@
+{
+  "id": "sdlc/intro",
+  "title": "Intro",
+  "description": "El ciclo de vida de desarrollo de software (SDLC, por sus siglas en inglés) se trata de un framework que define las etapas de planeación y diseño de la Arquitectura de Software; definición de los estándares de calidad y seguridad del código mediante estrategias de testing; y definición de la estrategia de packaging para las estrategias de deployment de artefactos en ambientes pre-productivos y productivos, como se resume en la siguiente Figura.",
+  "source": "@site/docs/sdlc/intro.mdx",
+  "sourceDirName": "sdlc",
+  "slug": "/sdlc/intro",
+  "permalink": "/MELI-Challenge/docs/sdlc/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "sdlcSidebar",
+  "next": {
+    "title": "Arquitectura de Software",
+    "permalink": "/MELI-Challenge/docs/category/arquitectura-de-software"
+  }
+}

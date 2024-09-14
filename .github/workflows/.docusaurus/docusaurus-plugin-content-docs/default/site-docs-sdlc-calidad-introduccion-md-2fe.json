@@ -1,0 +1,26 @@
+{
+  "id": "sdlc/calidad/introduccion",
+  "title": "Introducción",
+  "description": "",
+  "source": "@site/docs/sdlc/calidad/introduccion.md",
+  "sourceDirName": "sdlc/calidad",
+  "slug": "/sdlc/calidad/introduccion",
+  "permalink": "/MELI-Challenge/docs/sdlc/calidad/introduccion",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "sdlcSidebar",
+  "previous": {
+    "title": "Pruebas Automatizadas",
+    "permalink": "/MELI-Challenge/docs/category/pruebas-automatizadas"
+  },
+  "next": {
+    "title": "Frameworks",
+    "permalink": "/MELI-Challenge/docs/sdlc/calidad/frameworks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "label": "Artefacto",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Consideraciones de diseño de los microservicios."
+  }
+}

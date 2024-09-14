@@ -1,0 +1,22 @@
+{
+  "id": "intro",
+  "title": "Intro",
+  "description": "En la presente documentación, encontrarás todas las consideraciones técnicas en términos de Arquitectura de Software de cada uno de los microservicios.",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/MELI-Challenge/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Tutorial - Basics",
+    "permalink": "/MELI-Challenge/docs/category/tutorial---basics"
+  }
+}

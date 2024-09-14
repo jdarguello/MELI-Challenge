@@ -1,0 +1,737 @@
+{
+  "entrypoints": [
+    "main"
+  ],
+  "origins": {
+    "1538": [
+      867,
+      1869,
+      3249,
+      3347,
+      4813,
+      6061,
+      7643,
+      8401,
+      1538
+    ],
+    "2237": [
+      2237
+    ],
+    "3347": [
+      867,
+      1538,
+      1869,
+      3249,
+      4212,
+      4813,
+      7643,
+      3347
+    ],
+    "17896441": [
+      1538,
+      1869,
+      8401
+    ],
+    "59362658": [
+      9325
+    ],
+    "main": [
+      1869,
+      5354,
+      8792
+    ],
+    "runtime~main": [
+      1869,
+      8792,
+      5354
+    ],
+    "01a85c17": [
+      1869,
+      8209
+    ],
+    "0e384e19": [
+      3976
+    ],
+    "13e90f26": [
+      531
+    ],
+    "14eb3368": [
+      1869,
+      6969
+    ],
+    "1569fe91": [
+      3591
+    ],
+    "18c41134": [
+      9262
+    ],
+    "1cb716ee": [
+      5217
+    ],
+    "1df93b7f": [
+      1869,
+      4583
+    ],
+    "1e4232ab": [
+      1953
+    ],
+    "1f391b9e": [
+      1538,
+      1869,
+      6061
+    ],
+    "2390a03d": [
+      7423
+    ],
+    "299570bf": [
+      1647
+    ],
+    "33fc5bb8": [
+      1538,
+      1869,
+      3347,
+      867
+    ],
+    "36994c47": [
+      9858
+    ],
+    "393be207": [
+      4134
+    ],
+    "52d3e240": [
+      5232
+    ],
+    "533a09ca": [
+      3098
+    ],
+    "5c868d36": [
+      1974
+    ],
+    "5e95c892": [
+      9647
+    ],
+    "621db11d": [
+      1869,
+      3347,
+      4212
+    ],
+    "6875c492": [
+      1538,
+      1869,
+      3347,
+      4813
+    ],
+    "71ed0d0d": [
+      1812
+    ],
+    "73664a40": [
+      1972
+    ],
+    "7661071f": [
+      8737
+    ],
+    "814f3328": [
+      7472
+    ],
+    "822bd8ab": [
+      2748
+    ],
+    "8717b14a": [
+      3694
+    ],
+    "925b3f96": [
+      8609
+    ],
+    "93ad63c2": [
+      3946
+    ],
+    "9e4087bc": [
+      2711
+    ],
+    "a57f7238": [
+      5160
+    ],
+    "a6aa9e1f": [
+      1538,
+      1869,
+      3347,
+      7643
+    ],
+    "a7456010": [
+      1235
+    ],
+    "a7bd4aaa": [
+      7098
+    ],
+    "a94703ab": [
+      1869,
+      9048
+    ],
+    "aba21aa0": [
+      5742
+    ],
+    "acecf23e": [
+      1903
+    ],
+    "c7e19b14": [
+      9773
+    ],
+    "ccc49370": [
+      1538,
+      1869,
+      3347,
+      3249
+    ],
+    "d8d133a1": [
+      7274
+    ],
+    "d9f32620": [
+      5557
+    ],
+    "dff1c289": [
+      1724
+    ],
+    "e273c56f": [
+      9328
+    ],
+    "e44a2883": [
+      4736
+    ],
+    "f3c53397": [
+      5056
+    ],
+    "f4f34a3a": [
+      3637
+    ],
+    "f55d3e7a": [
+      8863
+    ],
+    "f6b97db3": [
+      308
+    ],
+    "styles": [
+      867,
+      1538,
+      3249,
+      3347,
+      4212,
+      4583,
+      4813,
+      5354,
+      6061,
+      6969,
+      7643,
+      8209,
+      8401,
+      8792,
+      9048,
+      1869
+    ]
+  },
+  "assets": {
+    "308": {
+      "js": [
+        {
+          "file": "assets/js/f6b97db3.29b05e00.js",
+          "hash": "84fbc824c9002fc8",
+          "publicPath": "/jdarguello.github.io/assets/js/f6b97db3.29b05e00.js"
+        }
+      ]
+    },
+    "531": {
+      "js": [
+        {
+          "file": "assets/js/13e90f26.77297e08.js",
+          "hash": "91f5582f8d155b2f",
+          "publicPath": "/jdarguello.github.io/assets/js/13e90f26.77297e08.js"
+        }
+      ]
+    },
+    "867": {
+      "js": [
+        {
+          "file": "assets/js/33fc5bb8.2786388f.js",
+          "hash": "5f60941dbee76d07",
+          "publicPath": "/jdarguello.github.io/assets/js/33fc5bb8.2786388f.js"
+        }
+      ]
+    },
+    "1235": {
+      "js": [
+        {
+          "file": "assets/js/a7456010.5f9bbb01.js",
+          "hash": "72227e34dd751b99",
+          "publicPath": "/jdarguello.github.io/assets/js/a7456010.5f9bbb01.js"
+        }
+      ]
+    },
+    "1538": {
+      "js": [
+        {
+          "file": "assets/js/1538.a265ec9d.js",
+          "hash": "b92093d8783a5b80",
+          "publicPath": "/jdarguello.github.io/assets/js/1538.a265ec9d.js"
+        }
+      ]
+    },
+    "1647": {
+      "js": [
+        {
+          "file": "assets/js/299570bf.7b060431.js",
+          "hash": "143c52c32d1f2751",
+          "publicPath": "/jdarguello.github.io/assets/js/299570bf.7b060431.js"
+        }
+      ]
+    },
+    "1724": {
+      "js": [
+        {
+          "file": "assets/js/dff1c289.e0e82c9c.js",
+          "hash": "1508dbfdb3c6c253",
+          "publicPath": "/jdarguello.github.io/assets/js/dff1c289.e0e82c9c.js"
+        }
+      ]
+    },
+    "1812": {
+      "js": [
+        {
+          "file": "assets/js/71ed0d0d.41ac2cc6.js",
+          "hash": "cbbf95056c1a42b4",
+          "publicPath": "/jdarguello.github.io/assets/js/71ed0d0d.41ac2cc6.js"
+        }
+      ]
+    },
+    "1869": {
+      "css": [
+        {
+          "file": "assets/css/styles.fb26b8ff.css",
+          "hash": "3ce464a1e4a0036d",
+          "publicPath": "/jdarguello.github.io/assets/css/styles.fb26b8ff.css"
+        }
+      ]
+    },
+    "1903": {
+      "js": [
+        {
+          "file": "assets/js/acecf23e.c0b311fb.js",
+          "hash": "e5750e132b7d696f",
+          "publicPath": "/jdarguello.github.io/assets/js/acecf23e.c0b311fb.js"
+        }
+      ]
+    },
+    "1953": {
+      "js": [
+        {
+          "file": "assets/js/1e4232ab.0df72bf9.js",
+          "hash": "c45fc38dfdd3f11c",
+          "publicPath": "/jdarguello.github.io/assets/js/1e4232ab.0df72bf9.js"
+        }
+      ]
+    },
+    "1972": {
+      "js": [
+        {
+          "file": "assets/js/73664a40.bf3c2b56.js",
+          "hash": "8735fe033ae0d84a",
+          "publicPath": "/jdarguello.github.io/assets/js/73664a40.bf3c2b56.js"
+        }
+      ]
+    },
+    "1974": {
+      "js": [
+        {
+          "file": "assets/js/5c868d36.a1fb53f0.js",
+          "hash": "41ef4449588b376d",
+          "publicPath": "/jdarguello.github.io/assets/js/5c868d36.a1fb53f0.js"
+        }
+      ]
+    },
+    "2237": {
+      "js": [
+        {
+          "file": "assets/js/2237.fe867cfb.js",
+          "hash": "10d3e5e1ee8e900c",
+          "publicPath": "/jdarguello.github.io/assets/js/2237.fe867cfb.js"
+        }
+      ]
+    },
+    "2711": {
+      "js": [
+        {
+          "file": "assets/js/9e4087bc.9b70b1ae.js",
+          "hash": "e8d97404908db28d",
+          "publicPath": "/jdarguello.github.io/assets/js/9e4087bc.9b70b1ae.js"
+        }
+      ]
+    },
+    "2748": {
+      "js": [
+        {
+          "file": "assets/js/822bd8ab.b9cd75f2.js",
+          "hash": "4b5582e044fbdd5e",
+          "publicPath": "/jdarguello.github.io/assets/js/822bd8ab.b9cd75f2.js"
+        }
+      ]
+    },
+    "3098": {
+      "js": [
+        {
+          "file": "assets/js/533a09ca.eab4c27b.js",
+          "hash": "b42177e90e364727",
+          "publicPath": "/jdarguello.github.io/assets/js/533a09ca.eab4c27b.js"
+        }
+      ]
+    },
+    "3249": {
+      "js": [
+        {
+          "file": "assets/js/ccc49370.38b48d43.js",
+          "hash": "c5ffe91eec381a5d",
+          "publicPath": "/jdarguello.github.io/assets/js/ccc49370.38b48d43.js"
+        }
+      ]
+    },
+    "3347": {
+      "js": [
+        {
+          "file": "assets/js/3347.6b0bf050.js",
+          "hash": "761e807ff3d482ae",
+          "publicPath": "/jdarguello.github.io/assets/js/3347.6b0bf050.js"
+        }
+      ]
+    },
+    "3591": {
+      "js": [
+        {
+          "file": "assets/js/1569fe91.e164edbd.js",
+          "hash": "a36e366fe7c181a0",
+          "publicPath": "/jdarguello.github.io/assets/js/1569fe91.e164edbd.js"
+        }
+      ]
+    },
+    "3637": {
+      "js": [
+        {
+          "file": "assets/js/f4f34a3a.d3523d9b.js",
+          "hash": "ead2a8bf594d46fb",
+          "publicPath": "/jdarguello.github.io/assets/js/f4f34a3a.d3523d9b.js"
+        }
+      ]
+    },
+    "3694": {
+      "js": [
+        {
+          "file": "assets/js/8717b14a.da37ef2a.js",
+          "hash": "bb99a0cf58559e3e",
+          "publicPath": "/jdarguello.github.io/assets/js/8717b14a.da37ef2a.js"
+        }
+      ]
+    },
+    "3946": {
+      "js": [
+        {
+          "file": "assets/js/93ad63c2.5cedae1b.js",
+          "hash": "e00609f72ba5e0d8",
+          "publicPath": "/jdarguello.github.io/assets/js/93ad63c2.5cedae1b.js"
+        }
+      ]
+    },
+    "3976": {
+      "js": [
+        {
+          "file": "assets/js/0e384e19.c511aecc.js",
+          "hash": "7d5e9fea3a565446",
+          "publicPath": "/jdarguello.github.io/assets/js/0e384e19.c511aecc.js"
+        }
+      ]
+    },
+    "4134": {
+      "js": [
+        {
+          "file": "assets/js/393be207.163c7c42.js",
+          "hash": "21f1454fc90e220b",
+          "publicPath": "/jdarguello.github.io/assets/js/393be207.163c7c42.js"
+        }
+      ]
+    },
+    "4212": {
+      "js": [
+        {
+          "file": "assets/js/621db11d.153cb352.js",
+          "hash": "ae57f8a51732ad90",
+          "publicPath": "/jdarguello.github.io/assets/js/621db11d.153cb352.js"
+        }
+      ]
+    },
+    "4583": {
+      "js": [
+        {
+          "file": "assets/js/1df93b7f.57ef8764.js",
+          "hash": "80a033f92da82873",
+          "publicPath": "/jdarguello.github.io/assets/js/1df93b7f.57ef8764.js"
+        }
+      ]
+    },
+    "4736": {
+      "js": [
+        {
+          "file": "assets/js/e44a2883.d08559da.js",
+          "hash": "73ac8d0cfb4ff74a",
+          "publicPath": "/jdarguello.github.io/assets/js/e44a2883.d08559da.js"
+        }
+      ]
+    },
+    "4813": {
+      "js": [
+        {
+          "file": "assets/js/6875c492.6e2e074a.js",
+          "hash": "32e4c407c23eafa9",
+          "publicPath": "/jdarguello.github.io/assets/js/6875c492.6e2e074a.js"
+        }
+      ]
+    },
+    "5056": {
+      "js": [
+        {
+          "file": "assets/js/f3c53397.62dde802.js",
+          "hash": "7c06a100cf90313a",
+          "publicPath": "/jdarguello.github.io/assets/js/f3c53397.62dde802.js"
+        }
+      ]
+    },
+    "5160": {
+      "js": [
+        {
+          "file": "assets/js/a57f7238.5e08fe14.js",
+          "hash": "4dec8e37d41496aa",
+          "publicPath": "/jdarguello.github.io/assets/js/a57f7238.5e08fe14.js"
+        }
+      ]
+    },
+    "5217": {
+      "js": [
+        {
+          "file": "assets/js/1cb716ee.8364a8d6.js",
+          "hash": "f3fe96c61a118485",
+          "publicPath": "/jdarguello.github.io/assets/js/1cb716ee.8364a8d6.js"
+        }
+      ]
+    },
+    "5232": {
+      "js": [
+        {
+          "file": "assets/js/52d3e240.e554e389.js",
+          "hash": "75480e8b618d55ee",
+          "publicPath": "/jdarguello.github.io/assets/js/52d3e240.e554e389.js"
+        }
+      ]
+    },
+    "5354": {
+      "js": [
+        {
+          "file": "assets/js/runtime~main.c4c1fb95.js",
+          "hash": "28e63c4db69fb13e",
+          "publicPath": "/jdarguello.github.io/assets/js/runtime~main.c4c1fb95.js"
+        }
+      ]
+    },
+    "5557": {
+      "js": [
+        {
+          "file": "assets/js/d9f32620.a8bd306b.js",
+          "hash": "dc2d1154d44232f7",
+          "publicPath": "/jdarguello.github.io/assets/js/d9f32620.a8bd306b.js"
+        }
+      ]
+    },
+    "5742": {
+      "js": [
+        {
+          "file": "assets/js/aba21aa0.ed09cce9.js",
+          "hash": "bb6246b4587c441f",
+          "publicPath": "/jdarguello.github.io/assets/js/aba21aa0.ed09cce9.js"
+        }
+      ]
+    },
+    "6061": {
+      "js": [
+        {
+          "file": "assets/js/1f391b9e.6f467a80.js",
+          "hash": "132f95689389a6ef",
+          "publicPath": "/jdarguello.github.io/assets/js/1f391b9e.6f467a80.js"
+        }
+      ]
+    },
+    "6969": {
+      "js": [
+        {
+          "file": "assets/js/14eb3368.b3f9dfc9.js",
+          "hash": "ecc8308b0e71d344",
+          "publicPath": "/jdarguello.github.io/assets/js/14eb3368.b3f9dfc9.js"
+        }
+      ]
+    },
+    "7098": {
+      "js": [
+        {
+          "file": "assets/js/a7bd4aaa.300507f7.js",
+          "hash": "b0a6e53bf88e1530",
+          "publicPath": "/jdarguello.github.io/assets/js/a7bd4aaa.300507f7.js"
+        }
+      ]
+    },
+    "7274": {
+      "js": [
+        {
+          "file": "assets/js/d8d133a1.366a3639.js",
+          "hash": "31a669ab8a839b0b",
+          "publicPath": "/jdarguello.github.io/assets/js/d8d133a1.366a3639.js"
+        }
+      ]
+    },
+    "7423": {
+      "js": [
+        {
+          "file": "assets/js/2390a03d.aed08494.js",
+          "hash": "b9617c29b71be1c7",
+          "publicPath": "/jdarguello.github.io/assets/js/2390a03d.aed08494.js"
+        }
+      ]
+    },
+    "7472": {
+      "js": [
+        {
+          "file": "assets/js/814f3328.22da9cb9.js",
+          "hash": "27055f6aa6b2dd50",
+          "publicPath": "/jdarguello.github.io/assets/js/814f3328.22da9cb9.js"
+        }
+      ]
+    },
+    "7643": {
+      "js": [
+        {
+          "file": "assets/js/a6aa9e1f.103cb339.js",
+          "hash": "7913cde011903eba",
+          "publicPath": "/jdarguello.github.io/assets/js/a6aa9e1f.103cb339.js"
+        }
+      ]
+    },
+    "8209": {
+      "js": [
+        {
+          "file": "assets/js/01a85c17.e660fcd3.js",
+          "hash": "2f33dae5760600f8",
+          "publicPath": "/jdarguello.github.io/assets/js/01a85c17.e660fcd3.js"
+        }
+      ]
+    },
+    "8401": {
+      "js": [
+        {
+          "file": "assets/js/17896441.06e50056.js",
+          "hash": "8d4d18b5cf0eaccb",
+          "publicPath": "/jdarguello.github.io/assets/js/17896441.06e50056.js"
+        }
+      ]
+    },
+    "8609": {
+      "js": [
+        {
+          "file": "assets/js/925b3f96.d468df30.js",
+          "hash": "22fcff01c153760c",
+          "publicPath": "/jdarguello.github.io/assets/js/925b3f96.d468df30.js"
+        }
+      ]
+    },
+    "8737": {
+      "js": [
+        {
+          "file": "assets/js/7661071f.aa1d98a1.js",
+          "hash": "cba970b6cce972b2",
+          "publicPath": "/jdarguello.github.io/assets/js/7661071f.aa1d98a1.js"
+        }
+      ]
+    },
+    "8792": {
+      "js": [
+        {
+          "file": "assets/js/main.95f5701a.js",
+          "hash": "5895c9879e354194",
+          "publicPath": "/jdarguello.github.io/assets/js/main.95f5701a.js"
+        }
+      ]
+    },
+    "8863": {
+      "js": [
+        {
+          "file": "assets/js/f55d3e7a.a65df86e.js",
+          "hash": "a9b6bbdc88d67f26",
+          "publicPath": "/jdarguello.github.io/assets/js/f55d3e7a.a65df86e.js"
+        }
+      ]
+    },
+    "9048": {
+      "js": [
+        {
+          "file": "assets/js/a94703ab.30c92f68.js",
+          "hash": "4f3b1e974e7292b9",
+          "publicPath": "/jdarguello.github.io/assets/js/a94703ab.30c92f68.js"
+        }
+      ]
+    },
+    "9262": {
+      "js": [
+        {
+          "file": "assets/js/18c41134.ead08f0b.js",
+          "hash": "6efd1b7f7f5490ef",
+          "publicPath": "/jdarguello.github.io/assets/js/18c41134.ead08f0b.js"
+        }
+      ]
+    },
+    "9325": {
+      "js": [
+        {
+          "file": "assets/js/59362658.e6eae7ee.js",
+          "hash": "20f2b186b8c63d4d",
+          "publicPath": "/jdarguello.github.io/assets/js/59362658.e6eae7ee.js"
+        }
+      ]
+    },
+    "9328": {
+      "js": [
+        {
+          "file": "assets/js/e273c56f.3d7c2c98.js",
+          "hash": "48f5d53f41816c38",
+          "publicPath": "/jdarguello.github.io/assets/js/e273c56f.3d7c2c98.js"
+        }
+      ]
+    },
+    "9647": {
+      "js": [
+        {
+          "file": "assets/js/5e95c892.3d1fe17f.js",
+          "hash": "a33ffd72e76c2141",
+          "publicPath": "/jdarguello.github.io/assets/js/5e95c892.3d1fe17f.js"
+        }
+      ]
+    },
+    "9773": {
+      "js": [
+        {
+          "file": "assets/js/c7e19b14.4a025ed5.js",
+          "hash": "d628d598e420359b",
+          "publicPath": "/jdarguello.github.io/assets/js/c7e19b14.4a025ed5.js"
+        }
+      ]
+    },
+    "9858": {
+      "js": [
+        {
+          "file": "assets/js/36994c47.337a7516.js",
+          "hash": "4eef4c13cda8e532",
+          "publicPath": "/jdarguello.github.io/assets/js/36994c47.337a7516.js"
+        }
+      ]
+    }
+  }
+}

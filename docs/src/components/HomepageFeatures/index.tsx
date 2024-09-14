@@ -10,7 +10,7 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Flask',
+    title: 'SDLC',
     Svg: require('@site/static/img/python2.svg').default,
     description: (
       <>
@@ -19,7 +19,7 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Ecosistema GitHub',
+    title: 'Supply Chain',
     Svg: require('@site/static/img/github2.svg').default,
     description: (
       <>
