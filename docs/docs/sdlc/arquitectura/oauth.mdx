@@ -1,0 +1,45 @@
+---
+slidebar_position: 2
+---
+
+# Microservicio OAuth
+
+El objetivo del desarrollo trata sobre la construcción de un API REST que gestione las operaciones CRUD (crear, leer, eliminar y modificar) en roles y su asignación a diferentes usuarios. 
+
+El microservicio debe cumplir los siguientes _requerimientos funcionales_.
+
+* El microservicio debe permitir a los usuarios autenticarse mediante OAuth.
+* Los usuarios con rol _"admin"_ podrán gestionar las operaciones CRUD sobre _roles_ y _permisos_, además de tener la facultad de asignar roles a los demás usuarios.
+* Los usuarios que se reporten por primera vez recibirán un rol _"default"_, que no les permitirá gestionar roles ni permisos. Así como tampoco asignar roles a ningún otro usuario.
+* El rol "default" se asumirá como _cliente_ o _usuario final_, por lo que sólo debería recibir un token de autenticación. No debe poder realizar ninguna operación CRUD (tampoco lectura) sobre los roles o permisos gestionados en el microservicio.
+
+
+## 1. Arquitectura de Software
+
+Como se mencionó en la sección de _Generalidades_, se aplica una arquitectura hexagonal sobre el problema, separándola en tres capas: dominio, aplicación e infraestructura, como se muestra en los esquemas a continuación. 
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Dominio from './capas/dominio.mdx';
+import Aplicacion from './capas/aplicacion.mdx';
+import Infra from './capas/infraestructura.mdx';
+
+<Tabs>
+    <TabItem value="dominio" label="Domain" default>
+        <Dominio />
+    </TabItem>
+    <TabItem value="aplicacion" label="Application">
+        <Aplicacion />
+    </TabItem>
+    <TabItem value="infraestructura" label="Infraestructura">
+        <Infra />
+    </TabItem>
+</Tabs>
+
+
+## 2. Persistencia de datos
+
+
+
+## 3. Concurrencia de datos
+

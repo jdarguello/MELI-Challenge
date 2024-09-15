@@ -36,6 +36,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          exclude: ['**/capas/**']
         },
         blog: {
           showReadingTime: true,

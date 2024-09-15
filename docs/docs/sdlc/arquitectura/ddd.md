@@ -2,5 +2,5 @@
 sidebar_position: 2
 ---
 
-# Encriptación
+# Domain-Driven Design (DDD)
 
