@@ -18,9 +18,7 @@ Por otro lado, el gobierno de los permisos de un rol están definidos dentro de 
 
 Una de las principales necesidades del problema es tercerizar la autenticación mediante protocolo OAuth, razón por la que en la Figura 3 se propone la gestión de objetos tipo `IdentityPlatform`. Estas plataformas pueden ser diferentes entidades de confianza, como GMail, Facebook, GitHub y Azure AD, entre otros.
 
-Estas plataformas requieren de distintos argumentos, listados en sus atributos, en orden de autenticar a un usuario. Para garantizar la integridad de la cuenta de un usuario a través de este microservicio, se vincula la cuenta de un _identity provider_ con la de un usuario en específico.
-
-El método `init_provider` será empleado como la base para conectar al usuario del microservicio con el `idp` establecido. 
+Estas plataformas requieren de distintos argumentos, listados en sus atributos, en orden de autenticar a un usuario. Para garantizar la integridad de la cuenta de un usuario a través de este microservicio, se vincula la cuenta de un _identity provider_ con la de un usuario en específico. El método `init_provider` será empleado como la base para conectar al usuario del microservicio con el `idp` establecido. 
 
 
 

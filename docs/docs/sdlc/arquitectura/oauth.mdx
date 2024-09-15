@@ -2,7 +2,7 @@
 slidebar_position: 2
 ---
 
-# Microservicio OAuth
+# Microservicio Auth
 
 El objetivo del desarrollo trata sobre la construcción de un API REST que gestione las operaciones CRUD (crear, leer, eliminar y modificar) en roles y su asignación a diferentes usuarios. 
 
@@ -34,12 +34,28 @@ import Infra from './capas/infraestructura.mdx';
     <TabItem value="infraestructura" label="Infraestructure">
         <Infra />
     </TabItem>
+    <TabItem value="total" label="Arquitectura Final">
+        ![](../../../static/img/sdlc/arquitectura/dominio.png)
+        Figura 6. Arquitectura de Software.
+    </TabItem>
 </Tabs>
 
 
 ## 2. Persistencia de datos
 
+En la capa de _dominio_ (ver Figura 3) se observan las entidades y sus interacciones dentro del microservicio. Como se aprecia, no se trata de interacciones complejas o dinámicas, por lo que una base de datos relacional debería ser suficiente para solucionar el almacenamiento de datos. En la Figura 7, se puede apreciar la propuesta de almacenamiento y relaciones entre tablas con lenguaje SQL.
 
+![](../../../static/img/sdlc/arquitectura/persistencia.png)
+
+Figura 7. Persistencia de datos con SQL.
+
+La decisión específica sobre el tipo de motor de base de datos SQL depende de la transaccionalidad en las operaciones de escritura y lectura. 
+
+* __Operaciones de escritura:__ se emplea en uno de dos escenarios. Ya sea cuando se autentica un nuevo usuario o cuando un usuario con permisos de administrador desea crear un nuevo rol o vincular un rol existente a otro usuario.
+* __Operaciones de lectura:__ escenario de mayor frecuencia. Se emplea para verificar el token de autenticación, su fecha de caducidad y los roles adscritos a un usuario.
+
+Como se espera que las operaciones de lectura sean mucho más frecuentes que las de escritura, podríamos decantarnos por emplear un caché basado en __Memcached__ para el almacenamiento de los datos de lectura del usuario (token y roles). Como no se evidencia una alta necesidad en tareas de escritura, se empleará una base de datos __PostgreSQL__.
 
 ## 3. Concurrencia de datos
 
+Poner gráfica (parecido al reto de Visa) en donde se observen las etapas de interacción entre flujos.
