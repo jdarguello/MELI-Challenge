@@ -36,7 +36,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          exclude: ['**/capas/**']
+          exclude: ['**/capas/**', '**/cache/**']
         },
         blog: {
           showReadingTime: true,
@@ -87,6 +87,12 @@ const config: Config = {
           sidebarId: 'cloudSidebar',
           position: 'left',
           label: 'Cloud Native',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'auditSidebar',
+          position: 'left',
+          label: 'Auditoría',
         },
         //{to: '/blog', label: 'Blog', position: 'left'},
         {

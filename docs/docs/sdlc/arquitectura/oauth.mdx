@@ -54,8 +54,27 @@ La decisión específica sobre el tipo de motor de base de datos SQL depende de 
 * __Operaciones de escritura:__ se emplea en uno de dos escenarios. Ya sea cuando se autentica un nuevo usuario o cuando un usuario con permisos de administrador desea crear un nuevo rol o vincular un rol existente a otro usuario.
 * __Operaciones de lectura:__ escenario de mayor frecuencia. Se emplea para verificar el token de autenticación, su fecha de caducidad y los roles adscritos a un usuario.
 
-Como se espera que las operaciones de lectura sean mucho más frecuentes que las de escritura, podríamos decantarnos por emplear un caché basado en __Memcached__ para el almacenamiento de los datos de lectura del usuario (token y roles). Como no se evidencia una alta necesidad en tareas de escritura, se empleará una base de datos __PostgreSQL__.
+Como se espera que las operaciones de lectura sean mucho más frecuentes que las de escritura, podríamos decantarnos por emplear un caché basado en __Memcached__ para el almacenamiento de los datos de lectura del usuario (token y roles). Como no se evidencia una alta transaccionalidad en tareas de escritura, se empleará una base de datos __PostgreSQL__.
 
 ## 3. Concurrencia de datos
 
-Poner gráfica (parecido al reto de Visa) en donde se observen las etapas de interacción entre flujos.
+La _concurrencia de datos_ busca garantizar la integridad de la solución y el correcto funcionamiento cuando ocurren transacciones múltiples en un tiempo dado. Para ello, se aplicará una estrategia de __Lazy Loading__ entre Memcached con PostgreSQL, utilizando un _Queue Service_ en la nube para desacoplar los componentes de software, como se muestra en las Figuras 8, 9 y 10.
+
+import Hit from './cache/hit.mdx';
+import Miss1 from './cache/miss1.mdx';
+import Miss2 from './cache/miss2.mdx';
+
+<Tabs>
+    <TabItem value="hit" label="Cache Hit: Success" default>
+        <Hit />
+    </TabItem>
+    <TabItem value="miss1" label="Cache Hit: Expired Token">
+        <Miss1 />
+    </TabItem>
+    <TabItem value="miss2" label="Cache Miss: New User">
+        <Miss2 />
+    </TabItem>
+</Tabs>
+
+
+Adicional, para garantizar el desacople entre flujos, emplearemos, a nivel de código, programación __reactiva__ y __funcional__.
