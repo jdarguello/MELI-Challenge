@@ -1,7 +1,34 @@
-# Gestión de variables de entorno
-
-main:
-  debug: true
-
 tests:
+  debug: true
   type: unit
+  unit:
+    db:
+      host: localhost
+      port: 5432
+      user: postgres
+      password: postgres
+      database: test
+  integration:
+    db:
+      host: localhost
+      port: 5432
+      user: postgres
+      password: postgres
+      database: test
+  functional:
+    db:
+      host: localhost
+      port: 5432
+      user: postgres
+      password: postgres
+      database: test
+
+prod:
+  debug: false
+  db-data:
+    db:
+      host: localhost
+      port: 5432
+      user: postgres
+      password: postgres
+      database: test
