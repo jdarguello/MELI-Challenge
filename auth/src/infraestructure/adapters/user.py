@@ -1,3 +1,5 @@
+from src.application.usecases.userService import UserService
+
 class UserAdapter:
     def __init__(self, app):
         self.app = app

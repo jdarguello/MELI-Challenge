@@ -1,15 +1,19 @@
+config:
+  env: tests
+  type: functional
+
 tests:
+  testing: true
+  track_modifications: true
   debug: true
-  type: unit
   unit:
     db:
-      host: localhost
-      port: 5432
-      user: postgres
-      password: postgres
-      database: test
+      uri: sqlite:///:memory?check_same_thread=False
+      secret: secret
   integration:
     db:
+      uri: postgresql://username:password@localhost/mydatabase
+      secret: secret
       host: localhost
       port: 5432
       user: postgres
@@ -17,6 +21,8 @@ tests:
       database: test
   functional:
     db:
+      uri: postgresql://username:password@localhost/mydatabase
+      secret: secret
       host: localhost
       port: 5432
       user: postgres
@@ -24,9 +30,13 @@ tests:
       database: test
 
 prod:
+  testing: false
+  track_modifications: false
   debug: false
   db-data:
     db:
+      uri: postgresql://username:password@localhost/mydatabase
+      secret: secret
       host: localhost
       port: 5432
       user: postgres
