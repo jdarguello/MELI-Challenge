@@ -45,3 +45,13 @@ El Mutation Testing consiste en hacer cambios controlados sobre el código fuent
 
 ## 4. Frameworks
 
+Los frameworks de testing utilizados en el presente trabajo se enumeran a continuación.
+
+| Framework | Versión | Descripción |
+| --------- | ------- | ----------- |
+| unittest  | v3.12   | Framework base de Python para la construcción de pruebas unitarias. Incluye herramientas para la generación de mocks. |
+| pytest    | v8.3.3  | Simplifica la construcción de pruebas unitarias. Genera reportes de cobertura |
+| mutpy     | v0.6.1  | Framework de mutation testing en Python. Genera reportes en HTML y es compatible con unittest y pytest. |
+
+
+Tabla 1. Resumen de frameworks de testing utilizados
