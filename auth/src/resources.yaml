@@ -1,0 +1,7 @@
+# Gestión de variables de entorno
+
+main:
+  debug: true
+
+tests:
+  type: unit
