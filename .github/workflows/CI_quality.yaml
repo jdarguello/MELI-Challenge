@@ -40,19 +40,16 @@ jobs:
         run: |
           pytest --cov=src --cov-report=xml
         working-directory: ./auth
-      
-      - name: Test SONAR_TOKEN environment variable
-        run: echo $SONAR_TOKEN
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: ./auth
+          projectBaseDir: auth
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.python.coverage.reportPaths=./auth/coverage.xml
+            -Dsonar.tests=./auth/tests/
+            -X
