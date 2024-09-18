@@ -10,10 +10,10 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
-     - name: Test SONAR_TOKEN environment variable
-        run: echo $SONAR_TOKEN
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Test SONAR_TOKEN environment variable
+      run: echo $SONAR_TOKEN
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   CI_quality:
     uses: jdarguello/MELI-Challenge/.github/workflows/CI_quality.yaml@main
