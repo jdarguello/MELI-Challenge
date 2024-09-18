@@ -44,6 +44,7 @@ jobs:
 
       - name: Project structure
         run: |
+          pwd
           cat coverage.xml
         working-directory: ./auth
 
