@@ -34,8 +34,11 @@ jobs:
           pytest --cov=src --cov-report=xml
         working-directory: ./auth
       
-      - name: Debug environment variables
-        run: printenv | grep SONAR
+      - name: Test SONAR_TOKEN environment variable
+        run: echo $SONAR_TOKEN
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
 
       - name: SonarCloud Scan
