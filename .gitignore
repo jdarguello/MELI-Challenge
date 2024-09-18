@@ -1,2 +1,4 @@
 auth/env
 auth/instance
+auth/.coverage
+auth/coverage.xml
