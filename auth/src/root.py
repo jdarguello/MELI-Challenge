@@ -5,12 +5,18 @@ import yaml
 # Inicialización de la aplicación y servicios externos (bd, cache, etc)
 
 # Configuración de la base de datos
-class DBConfig:
+class Config:
     def __init__(self, env):
         self.TESTING = env["testing"]
         self.SQLALCHEMY_DATABASE_URI = env["db"]["uri"]
         self.SQLALCHEMY_TRACK_MODIFICATIONS = env["track_modifications"]
         self.SECRET_KEY = env["db"]["secret"]
+    
+    def setUp(self):
+        app = Flask(__name__)
+        app.config.from_object(self)
+        db = SQLAlchemy(app)
+        return app, db
 
 # Lectura de variables de entorno
 def get_env():
@@ -19,9 +25,10 @@ def get_env():
 
 # Limpieza y definición de las variables de entorno para
 # configuración de servicios externos
-def get_env_vars():
+def get_env_vars(vars=None):
     args = get_env()
-    vars = args["config"]
+    if vars is None:
+        vars = args["config"]
     if not vars["env"] == "prod":
         db_args = args[vars["env"]][vars["type"]]["db"]
         for arg in ["unit", "integration", "functional"]:
@@ -31,6 +38,4 @@ def get_env_vars():
     return args["prod"]
 
 # Inicialización de la aplicación y de la base de datos
-app = Flask(__name__)
-app.config.from_object(DBConfig(get_env_vars()))
-db = SQLAlchemy(app)
+app, db = Config(get_env_vars()).setUp()

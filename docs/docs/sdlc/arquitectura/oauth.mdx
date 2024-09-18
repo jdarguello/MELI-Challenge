@@ -63,6 +63,7 @@ La _concurrencia de datos_ busca garantizar la integridad de la solución y el c
 import Hit from './cache/hit.mdx';
 import Miss1 from './cache/miss1.mdx';
 import Miss2 from './cache/miss2.mdx';
+import Miss3 from './cache/miss3.mdx';
 
 <Tabs>
     <TabItem value="hit" label="Cache Hit: Success" default>
@@ -70,6 +71,9 @@ import Miss2 from './cache/miss2.mdx';
     </TabItem>
     <TabItem value="miss1" label="Cache Hit: Expired Token">
         <Miss1 />
+    </TabItem>
+    <TabItem value="miss3" label="Cache Hit: Different Tokens">
+        <Miss3 />
     </TabItem>
     <TabItem value="miss2" label="Cache Miss: New User">
         <Miss2 />

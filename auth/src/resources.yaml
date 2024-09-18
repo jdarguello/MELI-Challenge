@@ -21,13 +21,8 @@ tests:
       database: test
   functional:
     db:
-      uri: postgresql://username:password@localhost/mydatabase
+      uri: sqlite:///users.sqlite3
       secret: secret
-      host: localhost
-      port: 5432
-      user: postgres
-      password: postgres
-      database: test
 
 prod:
   testing: false
