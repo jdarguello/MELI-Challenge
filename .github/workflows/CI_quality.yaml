@@ -38,8 +38,9 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=src --cov-report=xml:./auth/coverage.xml
+          pytest --cov=src --cov-report=xml:./coverage.xml
         working-directory: ./auth
+
       
       - name: Verify coverage file
         run: |
