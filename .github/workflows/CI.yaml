@@ -7,10 +7,10 @@ on:
 
 jobs:
   CI_quality:
-    uses: jdarguello/MELI-Challenge/.github/workflows/CI_secOps.yaml@main
+    uses: jdarguello/MELI-Challenge/.github/workflows/CI_quality.yaml@main
 
   CI_secOps:
-    uses: jdarguello/MELI-Challenge/.github/workflows/devsecops_controls.yaml@main
+    uses: jdarguello/MELI-Challenge/.github/workflows/CI_secOps.yaml@main
 
   #CI_docs:
   #  uses: jdarguello/MELI-Challenge/.github/workflows/docs-deploy.yaml@main
