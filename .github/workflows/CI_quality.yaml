@@ -59,5 +59,5 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.python.coverage.reportPaths=./auth/coverage.xml
             -Dsonar.sources=./auth/
-            -Dsonar.tests=./auth/tests
+            -Dsonar.tests=./tests
             -X
