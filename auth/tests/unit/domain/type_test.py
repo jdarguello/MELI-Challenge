@@ -1,6 +1,7 @@
 import unittest
-from src.root import Config, get_env_vars
+from src.root import *
 from src.domain.entities.type import Type
+import os
 
 # Objetivo: Ejecutar operaciones CRUD contra la base de datos de prueba
 class TestType(unittest.TestCase):
@@ -9,11 +10,13 @@ class TestType(unittest.TestCase):
     def setUpClass(cls):
         # Este método se ejecuta una vez antes de todas las pruebas
         env = get_env_vars({"env": "tests", "type": "unit"})
-        cls.app, cls.db = Config(env).setUp()
+        config = Config(env)
+        cls.app, cls.db = config.switchDB(app, db)
         
         # Create an application context
         cls.app_context = cls.app.app_context()
         cls.app_context.push()  # Push the app context to make it active
+
 
         # Now you can interact with the database
         cls.db.create_all()  # Create all tables in the database
@@ -31,19 +34,17 @@ class TestType(unittest.TestCase):
     def tearDown(self):
         self.db.session.rollback()  # Deshace los cambios en la base de datos
 
-    # Aquí es donde irían tus métodos de prueba. Por ejemplo:
     def test_create_type(self):
         # Crea una instancia de Type
         new_type = Type(name='Some name', description='Some description', weight=123)
-        assert new_type.name == 'Some name'
         self.db.session.add(new_type)
-        #self.db.session.commit()    #ERROR HERE
+        self.db.session.commit()
 
         # Verifica que la instancia se haya guardado correctamente
-        #saved_type = Type.query.get(new_type.typeId)
-        #self.assertEqual(saved_type.name, 'Some name')
-        #self.assertEqual(saved_type.description, 'Some description')
-        #self.assertEqual(saved_type.weight, 123)
+        saved_type = db.session.get(Type, new_type.typeId)
+        self.assertEqual(saved_type.name, 'Some name')
+        self.assertEqual(saved_type.description, 'Some description')
+        self.assertEqual(saved_type.weight, 123)
 
 if __name__ == '__main__':
     unittest.main()

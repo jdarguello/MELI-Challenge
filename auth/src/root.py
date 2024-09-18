@@ -4,7 +4,7 @@ import yaml
 
 # Inicialización de la aplicación y servicios externos (bd, cache, etc)
 
-# Configuración de la base de datos
+# Configuración de la aplicación y base de datos
 class Config:
     def __init__(self, env):
         self.TESTING = env["testing"]
@@ -12,16 +12,27 @@ class Config:
         self.SQLALCHEMY_TRACK_MODIFICATIONS = env["track_modifications"]
         self.SECRET_KEY = env["db"]["secret"]
     
+    # Inicialización
     def setUp(self):
         app = Flask(__name__)
         app.config.from_object(self)
         db = SQLAlchemy(app)
         return app, db
 
+    # Cambio de configuración de la base de datos
+    def switchDB(self, app, db):
+        with app.app_context():
+            app.config.from_object(self)
+            db.session.remove()
+            db.engine.dispose()
+        return app, db
+
 # Lectura de variables de entorno
 def get_env():
     with open("src/resources.yaml", "r") as f:
         return yaml.safe_load(f)
+    
+
 
 # Limpieza y definición de las variables de entorno para
 # configuración de servicios externos
