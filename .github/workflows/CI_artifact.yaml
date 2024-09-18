@@ -1,0 +1,12 @@
+name: Flujo de generación del artefacto
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Saludar
+        run: echo "Hola mundo!"
