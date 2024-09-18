@@ -26,7 +26,7 @@ jobs:
           java-version: ${{ vars.SONAR_JAVA_VERSION }}
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ vars.PYTHON_VERSION }}
 
@@ -56,6 +56,6 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.python.coverage.reportPaths=./auth/coverage.xml
-            -Dsonar.tests=./tests/
-            -Dsonar.sources=./src/
+            -Dsonar.tests=./auth/tests/
+            -Dsonar.sources=./auth/src/
             -X
