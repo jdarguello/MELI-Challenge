@@ -46,6 +46,7 @@ jobs:
         run: |
           pwd
           cat coverage.xml
+          ls -R
         working-directory: ./auth
 
       - name: SonarCloud Scan
@@ -57,7 +58,7 @@ jobs:
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.python.coverage.reportPaths=./auth/coverage.xml
+            -Dsonar.python.coverage.reportPaths=./coverage.xml
             -Dsonar.sources=./src/
             -Dsonar.tests=./tests/
             -X
