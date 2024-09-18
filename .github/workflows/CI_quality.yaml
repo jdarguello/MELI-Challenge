@@ -3,8 +3,6 @@ name: Análisis de métricas de calidad.
 on:
   workflow_call:
 
-on: [push, pull_request]
-
 jobs:
   code-quality:
     name: SonarCloud Scan
