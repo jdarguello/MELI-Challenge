@@ -38,8 +38,14 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=src --cov-report=xml
+          pytest --cov=src --cov-report=xml:./auth/coverage.xml
         working-directory: ./auth
+      
+      - name: Verify coverage file
+        run: |
+          ls -l ./auth/coverage.xml
+          cat ./auth/coverage.xml
+
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v3
