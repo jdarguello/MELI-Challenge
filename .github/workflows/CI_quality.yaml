@@ -3,8 +3,6 @@ name: Análisis de métricas de calidad.
 on:
   workflow_call:
 
-name: SonarCloud Analysis
-
 on: [push, pull_request]
 
 jobs:
