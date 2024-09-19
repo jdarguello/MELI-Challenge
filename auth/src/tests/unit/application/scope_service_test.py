@@ -2,7 +2,7 @@ from src.tests.testconfig import TestConfig
 from src.application.usecases.scopeService import ScopeService
 from sqlalchemy.orm.exc import NoResultFound
 
-class TestPermissionService(TestConfig):
+class TestScopeService(TestConfig):
     def setUp(self):
         super().setUp()
         self.scopeService = ScopeService()

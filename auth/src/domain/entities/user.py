@@ -1,5 +1,6 @@
 from src.root import db
 from src.domain.entities.user_role import user_role
+from datetime import datetime
 
 class User(db.Model):
     userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -19,3 +20,7 @@ class User(db.Model):
         secondary=user_role,
         back_populates='users'
     )
+
+    def valid_token(self):
+        # Debe retornar un booleano, comparando la fecha actual con la fecha de expiración del token
+        return self.token_expiry_date > datetime.now()

@@ -1,4 +1,3 @@
-from datetime import datetime
 from src.root import db
 
 class IdentityProvider(db.Model):
@@ -13,7 +12,4 @@ class IdentityProvider(db.Model):
 
     # One-to-many relationship with User (without cascade)
     users = db.relationship('User', back_populates='identity_provider', lazy='select')
-
-    def valid_token(self):
-        # Debe retornar un booleano, comparando la fecha actual con la fecha de expiración del token
-        return self.token_expiry_date > datetime.now()
+    
