@@ -7,12 +7,12 @@ class TestScopeService(TestConfig):
         super().setUp()
         self.scopeService = ScopeService()
 
+        self.vp_ti = {"name": "VP TI", "description": "Área encargada de la administración de los servicios de TI"}
+        self.vp_juridica = {"name": "VP Jurídica", "description": "Área encargada de la administración de los servicios legales"}
+        self.vp_finanzas = {"name": "VP Finanzas", "description": "Área encargada de la administración de los servicios financieros"}
+
     def test_create_and_get_permissions(self):
-        for scope_info in [
-            {"name": "VP TI", "description": "Área encargada de la administración de los servicios de TI"},
-            {"name": "VP Jurídica", "description": "Área encargada de la administración de los servicios legales"},
-            {"name": "VP Finanzas", "description": "Área encargada de la administración de los servicios financieros"},
-        ]:
+        for scope_info in [self.vp_ti, self.vp_juridica, self.vp_finanzas]:
             scope = self.scopeService.create(scope_info["name"], scope_info["description"])
             self.assertIsNotNone(scope.scopeId)
             self.assertEqual(scope.name, scope_info["name"])
@@ -22,18 +22,18 @@ class TestScopeService(TestConfig):
         self.assertIsNone(self.scopeService.get(-1))
     
     def test_update_scope(self):
-        vp_finanzas = self.scopeService.create("VP Finanzas", "Área que administra los servicios financieros")
+        vp_finanzas = self.scopeService.create(self.vp_finanzas["name"], self.vp_finanzas["description"])
 
-        vp_juridica = self.scopeService.update(vp_finanzas.scopeId, "VP Jurídica")
-        self.assertEqual(vp_juridica.name, "VP Jurídica")
+        vp_juridica = self.scopeService.update(vp_finanzas.scopeId, self.vp_juridica["name"])
+        self.assertEqual(vp_juridica.name, self.vp_juridica["name"])
         self.assertEqual(vp_juridica.description, vp_finanzas.description)
 
-        vp_juridica = self.scopeService.update(vp_juridica.scopeId, new_description="Área que administra los servicios legales")
-        self.assertEqual(vp_juridica.name, "VP Jurídica")
-        self.assertEqual(vp_juridica.description, "Área que administra los servicios legales")
+        vp_juridica = self.scopeService.update(vp_juridica.scopeId, new_description=self.vp_juridica["description"])
+        self.assertEqual(vp_juridica.name, self.vp_juridica["name"])
+        self.assertEqual(vp_juridica.description, self.vp_juridica["description"])
 
     def test_delete_permission_that_exists(self):
-        vp_ti = self.scopeService.create("VP TI", "Área encargada de la administración de los servicios de TI")
+        vp_ti = self.scopeService.create(self.vp_ti["name"], self.vp_ti["description"])
         self.assertIsNotNone(self.scopeService.get(vp_ti.scopeId))
         self.scopeService.delete(vp_ti.scopeId)
         self.assertIsNone(self.scopeService.get(vp_ti.scopeId))
