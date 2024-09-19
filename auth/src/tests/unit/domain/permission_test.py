@@ -6,7 +6,6 @@ class TestPermission(TestConfig):
     def test_create_permission(self):
         # Crea una instancia de Permission y la almacena en la BD
         new_permission = Permission(kind='Create')
-        #print(new_permission.kind)
         self.db.session.add(new_permission)
         self.db.session.commit()
 
