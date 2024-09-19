@@ -9,5 +9,6 @@ class Permission(db.Model):
     types = db.relationship(
         'Type', 
         secondary=type_permission, 
-        back_populates='permissions'
+        back_populates='permissions',
+        lazy="select"
     )

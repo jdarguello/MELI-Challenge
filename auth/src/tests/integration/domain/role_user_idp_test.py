@@ -1,6 +1,5 @@
-import unittest
+from src.tests.testconfig import TestConfig
 from datetime import datetime
-from src.root import Config, get_env_vars, app, db
 from src.domain.entities.type import Type
 from src.domain.entities.permission import Permission
 from src.domain.entities.role import Role
@@ -8,26 +7,7 @@ from src.domain.entities.scope import Scope
 from src.domain.entities.user import User
 from src.domain.services.identity_provider import IdentityProvider
 
-class TestRoleUserIDP(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        # Este método se ejecuta una vez antes de todas las pruebas
-        env = get_env_vars({"env": "tests", "type": "unit"})
-        config = Config(env)
-        cls.app, cls.db = config.switch_db(app, db)
-        
-        # Crear un application context
-        cls.app_context = cls.app.app_context()
-        cls.app_context.push() 
-
-        # Ahora, podemos interactuar con la base de datos
-        cls.db.drop_all()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.app_context.pop()
-
+class TestRoleUserIDP(TestConfig):
     def setUp(self):
         self.db.create_all()  # Crea todas las tablas en la base de datos
         self.db.session.begin_nested()  # Comienza una transacción anidada
@@ -88,12 +68,6 @@ class TestRoleUserIDP(unittest.TestCase):
             redirectUrl='https://your-app.com/oauth2callback'  # Replace with your app's redirect URI
         )
 
-        # Crea una instancia de User, la relaciona con el IdentityProvider Google y el Rol Admin
-
-    def tearDown(self):
-        self.db.session.remove()
-        self.db.drop_all()
-
     def test_create_one_user_with_1_role_idp(self):
         # Crea una instancia de User, la relaciona con el IdentityProvider Google y el Rol Admin
         date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
@@ -147,6 +121,3 @@ class TestRoleUserIDP(unittest.TestCase):
         self.assertEqual(user.roles[1].scope.name, self.fullstack_role.scope.name)
         self.assertEqual(user.roles[0].type.permissions[0].kind, self.admin.permissions[0].kind)
         self.assertEqual(user.roles[0].type.permissions[1].kind, self.admin.permissions[1].kind)
-        
-if __name__ == '__main__':
-    unittest.main()

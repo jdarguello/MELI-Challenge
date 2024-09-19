@@ -9,7 +9,7 @@ class Type(db.Model):
     weight = db.Column(db.Integer, default=1)  
 
     # One-to-many relationship with Role
-    roles = db.relationship('Role', back_populates='type', cascade="all, delete-orphan")
+    roles = db.relationship('Role', back_populates='type', cascade="all, delete-orphan", lazy="select")
 
     # Many-to-many relationship with Permission
     permissions = db.relationship(
