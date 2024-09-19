@@ -4,7 +4,7 @@ from src.root import Config, get_env_vars, app, db
 # Objetivo: Ejecutar operaciones CRUD contra la base de datos de prueba
 class TestConfig(unittest.TestCase):
     env = get_env_vars({"env": "tests", "type": "unit"})
-    
+
     @classmethod
     def setUpClass(cls):
         # Este método se ejecuta una vez antes de todas las pruebas
@@ -14,6 +14,8 @@ class TestConfig(unittest.TestCase):
         # Crear un application context
         cls.app_context = cls.app.app_context()
         cls.app_context.push() 
+
+        cls.db.drop_all()
 
     @classmethod
     def tearDownClass(cls):

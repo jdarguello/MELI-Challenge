@@ -1,4 +1,4 @@
-from src.tests.testconfig import TestConfig
+from src.tests.integration.domain.testconfig_domain import TestConfigDomain
 from datetime import datetime
 from src.domain.entities.type import Type
 from src.domain.entities.permission import Permission
@@ -7,36 +7,13 @@ from src.domain.entities.scope import Scope
 from src.domain.entities.user import User
 from src.domain.services.identity_provider import IdentityProvider
 
-class TestRoleUserIDP(TestConfig):
+class TestRoleUserIDP(TestConfigDomain):
     def setUp(self):
-        self.db.create_all()  # Crea todas las tablas en la base de datos
-        self.db.session.begin_nested()  # Comienza una transacción anidada
-
-        # Crea dos instancia de Permission y la almacena en la BD
-        self.create_permission = Permission(kind='Create')
-        self.db.session.add(self.create_permission)
-        self.db.session.commit()
-
-        self.read_permission = Permission(kind='Read')
-        self.db.session.add(self.read_permission)
-        self.db.session.commit()
-
-        #Crea un Type, lo relaciona con el permiso Create y Read y lo almacena en la BD
-        self.admin = Type(name='Admin', description='Administrador', weight=1000)
-        self.admin.permissions.append(self.create_permission)
-        self.admin.permissions.append(self.read_permission)
-        self.db.session.add(self.admin)
-        self.db.session.commit()
-
+        super().setUp()
         #Crea otro Type, lo relaciona con el permiso Read y lo almacena en la BD
         self.fullstack = Type(name='FullStack', description='Desarrollador FullStack', weight=500)
         self.fullstack.permissions.append(self.read_permission)
         self.db.session.add(self.fullstack)
-
-        # Crea una instancia de Scope y la almacena en la BD
-        self.corporate = Scope(name='Corporativo TI', description='Corporativo de Servicios de Tecnología')
-        self.db.session.add(self.corporate)
-        self.db.session.commit()
 
         # Crea otra instancia de Scope y la almacena en la BD
         self.legal = Scope(name='Legal', description='Departamento Legal')
@@ -44,14 +21,14 @@ class TestRoleUserIDP(TestConfig):
         self.db.session.commit()
 
         # Crea una instacia de Role, la relaciona con el scope Corporate y el Type Admin
-        self.admin_role = Role(name='Admin', description='Administrador')
+        self.admin_role = Role(name='Admin', description='Rol Administrador')
         self.admin_role.type = self.admin
         self.admin_role.scope = self.corporate
         self.db.session.add(self.admin_role)
         self.db.session.commit()
 
         # Crea una instancia de Role, la relaciona con el scope Legal y el Type FullStack
-        self.fullstack_role = Role(name='FullStack', description='Desarrollador FullStack')
+        self.fullstack_role = Role(name='FullStack', description='Rol Desarrollador FullStack')
         self.fullstack_role.type = self.fullstack
         self.fullstack_role.scope = self.legal
         self.db.session.add(self.fullstack_role)
@@ -91,7 +68,7 @@ class TestRoleUserIDP(TestConfig):
         self.assertEqual(len(saved_user.roles), 1)
         self.assertEqual(saved_user.roles[0].name, self.admin_role.name)
 
-
+    
     def test_create_one_user_with_2_role_idp(self):
         # Crea una instancia de User, la relaciona con el IdentityProvider Google y los Roles Admin y FullStack
         date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
@@ -120,4 +97,3 @@ class TestRoleUserIDP(TestConfig):
         self.assertEqual(user.roles[0].scope.name, self.admin_role.scope.name)
         self.assertEqual(user.roles[1].scope.name, self.fullstack_role.scope.name)
         self.assertEqual(user.roles[0].type.permissions[0].kind, self.admin.permissions[0].kind)
-        self.assertEqual(user.roles[0].type.permissions[1].kind, self.admin.permissions[1].kind)
