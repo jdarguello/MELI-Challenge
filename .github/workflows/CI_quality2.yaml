@@ -27,7 +27,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=src --cov-report=xml:./coverage.xml --cov-report=html
+          pytest --cov=src --cov-report=xml
         working-directory: ./auth
 
       #- name: Run tests with coverage
