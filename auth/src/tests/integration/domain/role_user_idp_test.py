@@ -141,6 +141,12 @@ class TestRoleUserIDP(unittest.TestCase):
         role_names = [role.name for role in saved_user.roles]
         self.assertIn(user.roles[0].name, role_names)
         self.assertIn(user.roles[1].name, role_names)
+        self.assertEqual(user.roles[0].type.name, self.admin_role.type.name)
+        self.assertEqual(user.roles[1].type.name, self.fullstack_role.type.name)
+        self.assertEqual(user.roles[0].scope.name, self.admin_role.scope.name)
+        self.assertEqual(user.roles[1].scope.name, self.fullstack_role.scope.name)
+        self.assertEqual(user.roles[0].type.permissions[0].kind, self.admin.permissions[0].kind)
+        self.assertEqual(user.roles[0].type.permissions[1].kind, self.admin.permissions[1].kind)
         
 if __name__ == '__main__':
     unittest.main()

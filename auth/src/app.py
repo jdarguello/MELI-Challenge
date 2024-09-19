@@ -8,9 +8,9 @@ from src.root import app
 # Construcción de la aplicación
 class App:
     def __init__(self):
-        self.app = app
+        self.flask_app = app
         self.setup_infraestructure()
 
     def setup_infraestructure(self):
-        authAdapter = AuthAdapter(self.app)
-        userAdapter = UserAdapter(self.app)
+        AuthAdapter(self.flask_app)
+        UserAdapter(self.flask_app)
