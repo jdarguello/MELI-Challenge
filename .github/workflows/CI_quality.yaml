@@ -32,8 +32,9 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=src --cov-report=xml:./coverage.xml --cov-report=html
-          sed -i 's/\/home\/runner\/work\/MELI-Challenge\/MELI-Challenge\/auth\/src/\.\/src/g' coverage.xml
+          pytest --cov=src --cov-report=xml
+          sed -i 's#/home/runner/work/MELI-Challenge/MELI-Challenge/auth/src#./auth/src#g' coverage.xml
+
         working-directory: ./auth
 
       - name: Project structure
@@ -53,5 +54,4 @@ jobs:
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.sources=.
 
