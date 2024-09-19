@@ -28,6 +28,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           pytest --cov=src --cov-report=xml
+          sed -i 's/\/home\/runner\/work\/MELI-Challenge\/MELI-Challenge\/auth\/src/\.\/src/g' coverage.xml
         working-directory: ./auth
 
       #- name: Run tests with coverage
