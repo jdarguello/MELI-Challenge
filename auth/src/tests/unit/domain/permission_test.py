@@ -1,9 +1,9 @@
 import unittest
 from src.root import Config, get_env_vars, app, db
-from src.domain.entities.type import Type
+from src.domain.entities.permission import Permission
 
 # Objetivo: Ejecutar operaciones CRUD contra la base de datos de prueba
-class TestType(unittest.TestCase):
+class TestPermission(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -30,17 +30,16 @@ class TestType(unittest.TestCase):
     def tearDown(self):
         self.db.session.rollback()  # Deshace los cambios en la base de datos
 
-    def test_create_type(self):
-        # Crea una instancia de Type y la almacena en la BD
-        new_type = Type(name='Some name', description='Some description', weight=123)
-        self.db.session.add(new_type)
-        self.db.session.commit()
+    def test_create_permission(self):
+        # Crea una instancia de Permission y la almacena en la BD
+        new_permission = Permission(kind='Create')
+        #print(new_permission.kind)
+        db.session.add(new_permission)
+        db.session.commit()
 
         # Verifica que la instancia se haya guardado correctamente
-        saved_type = db.session.get(Type, new_type.typeId)
-        self.assertEqual(saved_type.name, 'Some name')
-        self.assertEqual(saved_type.description, 'Some description')
-        self.assertEqual(saved_type.weight, 123)
+        saved_permission = db.session.get(Permission, new_permission.permissionId)
+        self.assertEqual(saved_permission.kind, 'Create')
 
 if __name__ == '__main__':
     unittest.main()

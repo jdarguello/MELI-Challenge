@@ -1,4 +1,4 @@
-from src.app import *
+from src.app import App
 from src.root import get_env_vars
 
 # Inicio y gestión del microservicio
