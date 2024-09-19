@@ -25,7 +25,7 @@ class TestIdentityProviderService(TestConfig):
     def test_update_idp(self):
         google = self.identityProviderService.create(**self.google)
 
-        new_google = self.identityProviderService.update(self.google["name"], clientSecret="2j3n")
+        new_google = self.identityProviderService.update(google.name, clientSecret="2j3n")
         self.assertEqual(google.identityProviderId, new_google.identityProviderId)
         self.assertEqual("2j3n", self.identityProviderService.get(self.google["name"]).clientSecret)
     

@@ -39,7 +39,7 @@ class TestScopeService(TestConfig):
         self.assertIsNone(self.scopeService.get(vp_ti.scopeId))
 
     def test_delete_permission_that_not_exists(self):
-        scopeId = -1
+        scope_id = -1
         with self.assertRaises(NoResultFound) as error:
-            self.scopeService.delete(scopeId)
-        self.assertEqual(str(error.exception), "Scope with scopeId=" + str(scopeId) + " not found")
+            self.scopeService.delete(scope_id)
+        self.assertEqual(str(error.exception), "Scope with scopeId=" + str(scope_id) + " not found")
