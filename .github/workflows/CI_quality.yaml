@@ -37,12 +37,12 @@ jobs:
 
         working-directory: ./auth
 
-      - name: Project structure
-        run: |
-          pwd
-          cat coverage.xml
-          ls -R
-        working-directory: ./auth
+      #- name: Project structure
+      #  run: |
+      #    pwd
+      #    cat coverage.xml
+      #    ls -R
+      #  working-directory: ./auth
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
