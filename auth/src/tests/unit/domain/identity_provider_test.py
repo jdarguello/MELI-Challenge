@@ -10,7 +10,7 @@ class TestIdentityProvider(unittest.TestCase):
         # Este método se ejecuta una vez antes de todas las pruebas
         env = get_env_vars({"env": "tests", "type": "unit"})
         config = Config(env)
-        cls.app, cls.db = config.switchDB(app, db)
+        cls.app, cls.db = config.switch_db(app, db)
         
         # Crear un application context
         cls.app_context = cls.app.app_context()
@@ -32,7 +32,7 @@ class TestIdentityProvider(unittest.TestCase):
 
     def test_create_identityProvider(self):
        # Create an instance of IdentityProvider with all required fields
-        new_identityProvider = IdentityProvider(
+        new_identity_provider = IdentityProvider(
             clientId='test_client_id',
             name='Test Identity Provider',
             clientSecret='test_client_secret',
@@ -43,21 +43,21 @@ class TestIdentityProvider(unittest.TestCase):
         )
         
         # Add the instance to the session and commit it
-        db.session.add(new_identityProvider)
+        db.session.add(new_identity_provider)
         db.session.commit()
 
         # Retrieve the instance from the database using its primary key
-        saved_identityProvider = db.session.get(IdentityProvider, new_identityProvider.identityProviderId)
+        saved_identity_provider = db.session.get(IdentityProvider, new_identity_provider.identityProviderId)
         
         # Verify that the saved instance matches the original values
-        self.assertIsNotNone(saved_identityProvider)
-        self.assertEqual(saved_identityProvider.clientId, 'test_client_id')
-        self.assertEqual(saved_identityProvider.name, 'Test Identity Provider')
-        self.assertEqual(saved_identityProvider.clientSecret, 'test_client_secret')
-        self.assertEqual(saved_identityProvider.baseUrl, 'https://example.com/base')
-        self.assertEqual(saved_identityProvider.tokenUrl, 'https://example.com/token')
-        self.assertEqual(saved_identityProvider.authorizationUrl, 'https://example.com/authorize')
-        self.assertEqual(saved_identityProvider.redirectUrl, 'https://example.com/redirect')
+        self.assertIsNotNone(saved_identity_provider)
+        self.assertEqual(saved_identity_provider.clientId, 'test_client_id')
+        self.assertEqual(saved_identity_provider.name, 'Test Identity Provider')
+        self.assertEqual(saved_identity_provider.clientSecret, 'test_client_secret')
+        self.assertEqual(saved_identity_provider.baseUrl, 'https://example.com/base')
+        self.assertEqual(saved_identity_provider.tokenUrl, 'https://example.com/token')
+        self.assertEqual(saved_identity_provider.authorizationUrl, 'https://example.com/authorize')
+        self.assertEqual(saved_identity_provider.redirectUrl, 'https://example.com/redirect')
 
 if __name__ == '__main__':
     unittest.main()

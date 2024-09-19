@@ -10,7 +10,7 @@ class TestType(unittest.TestCase):
         # Este método se ejecuta una vez antes de todas las pruebas
         env = get_env_vars({"env": "tests", "type": "unit"})
         config = Config(env)
-        cls.app, cls.db = config.switchDB(app, db)
+        cls.app, cls.db = config.switch_db(app, db)
         
         # Crear un application context
         cls.app_context = cls.app.app_context()

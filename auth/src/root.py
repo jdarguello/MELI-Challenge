@@ -13,14 +13,14 @@ class Config:
         self.SECRET_KEY = env["db"]["secret"]
     
     # Inicialización
-    def setUp(self):
+    def setup(self):
         app = Flask(__name__)
         app.config.from_object(self)
         db = SQLAlchemy(app)
         return app, db
 
     # Cambio de configuración de la base de datos
-    def switchDB(self, app, db):
+    def switch_db(self, app, db):
         with app.app_context():
             app.config.from_object(self)
             db.session.remove()
@@ -32,15 +32,13 @@ def get_env():
     with open("src/resources.yaml", "r") as f:
         return yaml.safe_load(f)
     
-
-
 # Limpieza y definición de las variables de entorno para
 # configuración de servicios externos
 def get_env_vars(variables=None):
     args = get_env()
     if variables is None:
         variables = args["config"]
-    if not variables["env"] == "prod":
+    if variables["env"] != "prod":
         db_args = args[variables["env"]][variables["type"]]["db"]
         for arg in ["unit", "integration", "functional"]:
             args[variables["env"]].pop(arg)
@@ -49,4 +47,4 @@ def get_env_vars(variables=None):
     return args["prod"]
 
 # Inicialización de la aplicación y de la base de datos
-app, db = Config(get_env_vars()).setUp()
+app, db = Config(get_env_vars()).setup()
