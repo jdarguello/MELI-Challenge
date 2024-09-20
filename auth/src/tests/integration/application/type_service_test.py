@@ -8,7 +8,7 @@ class TestTypeService(TestConfig):
         self.typeService = TypeService()
 
         for kind in ["Create", "Read", "Update", "Delete"]:
-            self.typeService.permissionService.create(kind)
+            self.typeService.permission_service.create(kind)
         
         self.vp_type = {
             "name": "VP",
@@ -41,6 +41,14 @@ class TestTypeService(TestConfig):
         self.assertTrue(self.typeService.permission_exists(vp_updated,"Create"))
         self.assertEqual(vp_updated.permissions[0].kind, "Create")
         self.assertEqual(vp_updated.permissions[1].kind, "Read")
+
+    def test_remove_permissions(self):
+        vp = self.typeService.create("Read", "Create", **self.vp_type)
+        vp_updated = self.typeService.remove_permission(vp.typeId, "Read")
+        self.assertEqual(len(vp_updated.permissions), 1)
+        self.assertFalse(self.typeService.permission_exists(vp_updated,"Read"))
+        self.assertTrue(self.typeService.permission_exists(vp_updated,"Create"))
+        self.assertEqual(vp_updated.permissions[0].kind, "Create")
     
     def test_delete_permission_that_exists(self):
         vp = self.typeService.create(**self.vp_type)

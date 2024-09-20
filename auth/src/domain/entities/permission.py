@@ -10,5 +10,5 @@ class Permission(db.Model):
         'Type', 
         secondary=type_permission, 
         back_populates='permissions',
-        lazy="select"
+        lazy="noload"
     )

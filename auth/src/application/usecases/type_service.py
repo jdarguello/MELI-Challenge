@@ -5,7 +5,7 @@ from src.root import db
 
 class TypeService:
     def __init__(self):
-        self.permissionService = PermissionService()
+        self.permission_service = PermissionService()
 
     def create(self, *kind_permissions, **type_attributes):
         new_type = Type(**type_attributes)
@@ -25,6 +25,18 @@ class TypeService:
         [setattr(type_obj, key, value) for key, value in new_type_attributes.items() if not self._no_attribute_error(type_obj, key)]
         db.session.commit()
         return type_obj
+    
+    def remove_permission(self, type_id, kind_permission):
+        type_obj = self.get(type_id)
+        permission_to_remove = None
+        for permission in type_obj.permissions:
+            if permission.kind == kind_permission:
+                permission_to_remove = permission
+                break
+        if permission_to_remove is not None:
+            type_obj.permissions.remove(permission_to_remove)
+        db.session.commit()
+        return type_obj
 
     def delete(self, type_id):
         type_obj = self.get(type_id)
@@ -37,9 +49,13 @@ class TypeService:
                 return True
         return False
     
+    def _obj_session(self, obj):
+        if not db.session.object_session(obj):
+            db.session.add(obj)
+    
     def _set_permissions(self, type_obj, *kind_permissions):
         for kind in kind_permissions:
-            type_obj.permissions.append(self.permissionService.get(kind))
+            type_obj.permissions.append(self.permission_service.get(kind))
     
     def _not_found_error(self, type_obj, type_id):
         if type_obj is None:

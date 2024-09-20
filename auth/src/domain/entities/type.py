@@ -15,5 +15,4 @@ class Type(db.Model):
     permissions = db.relationship(
         'Permission', 
         secondary=type_permission, 
-        back_populates='types'
     )
