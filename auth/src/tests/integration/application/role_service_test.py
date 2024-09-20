@@ -17,7 +17,7 @@ class TestRoleService(TestConfigApplication):
     def test_create_and_get_role_with_type_and_scope(self):
         vp_colombia = self.roleService.create(**self.roles[0])
         vp_colombia_db = self.roleService.get_by_id(vp_colombia.roleId)
-        self.assertEqual(vp_colombia_db.name, "VP Colombia")
+        self.assertEqual(vp_colombia_db.name, self.roles[0]["name"])
         self.assertEqual(vp_colombia_db.description, "Vice Presidento Corporativo - Filial Colombia")
         self.assertEqual(vp_colombia_db.type.typeId, self.types[0]["typeId"])
         self.assertEqual(vp_colombia_db.scope.scopeId, self.scopes[0]["scopeId"])
@@ -26,24 +26,24 @@ class TestRoleService(TestConfigApplication):
         self._not_found_role_error(-1, self.roleService.get_by_id)
     
     def test_get_role_by_scope(self):
-        vp_colombia = self.roleService.create(**self.roles[0])
-        vp_brasil = self.roleService.create(**self.roles[2])
+        self.roleService.create(**self.roles[0])
+        self.roleService.create(**self.roles[2])
         roles = self.roleService.get_by_scope(self.scopes[0]["scopeId"])
         self.assertEqual(len(roles), 1)
-        self.assertEqual(roles[0].name, "VP Colombia")
+        self.assertEqual(roles[0].name, self.roles[0]["name"])
 
-        full_stack_br = self.roleService.create(**self.roles[3])
+        self.roleService.create(**self.roles[3])
         roles = self.roleService.get_by_scope(self.scopes[1]["scopeId"])
         self.assertEqual(len(roles), 2)
-        self.assertEqual(roles[0].name, "VP Brasil")
+        self.assertEqual(roles[0].name, self.roles[2]["name"])
         self.assertEqual(roles[1].name, "Full-stack BR")
     
     def test_update_role(self):
-        self.roles[0]["name"] = "VP Brasil"
+        self.roles[0]["name"] = self.roles[2]["name"]
         self.roles[0]["description"] = "Vice Presidente Corporativo - Filial Brasil"
         vp_colombia = self.roleService.create(**self.roles[0])
-        vp_colombia_updated = self.roleService.update(vp_colombia.roleId, new_name="VP Colombia", new_description="Vice Presidente Corporativo - Filial Colombia")
-        self.assertEqual(vp_colombia_updated.name, "VP Colombia")
+        vp_colombia_updated = self.roleService.update(vp_colombia.roleId, new_name=self.roles[0]["name"], new_description="Vice Presidente Corporativo - Filial Colombia")
+        self.assertEqual(vp_colombia_updated.name, self.roles[0]["name"])
         self.assertEqual(vp_colombia_updated.description, "Vice Presidente Corporativo - Filial Colombia")
     
     def test_delete_role_that_exists(self):

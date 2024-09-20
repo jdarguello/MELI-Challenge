@@ -9,11 +9,11 @@ class RoleService:
         self.type_service = TypeService()
         self.scope_service = ScopeService()
 
-    def create(self, name, description, typeId, scopeId):
+    def create(self, name, description, type_id, scope_id):
         new_role = Role(name=name, 
             description=description, 
-            type=self.type_service.get(typeId), 
-            scope=self.scope_service.get(scopeId))
+            type=self.type_service.get(type_id), 
+            scope=self.scope_service.get(scope_id))
         db.session.add(new_role)
         db.session.commit()
         return new_role
