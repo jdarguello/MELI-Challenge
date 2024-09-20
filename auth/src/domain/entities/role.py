@@ -19,6 +19,5 @@ class Role(db.Model):
     users = db.relationship(
         'User',
         secondary=user_role,
-        back_populates='roles',
-        lazy="select"
+        lazy="noload"
     )

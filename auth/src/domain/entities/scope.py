@@ -7,4 +7,4 @@ class Scope(db.Model):
     description = db.Column(db.Text)
 
     # One-to-many relationship with Role
-    roles = db.relationship('Role', back_populates='scope', cascade="all, delete-orphan", lazy='select')
+    roles = db.relationship('Role', cascade="all, delete-orphan", lazy='noload')
