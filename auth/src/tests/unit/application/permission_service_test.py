@@ -15,7 +15,8 @@ class TestPermissionService(TestConfig):
             self.assertEqual(permission.kind, self.permissionService.get(kind_permission).kind)
         
     def test_get_permission_that_not_exists(self):
-        self.assertIsNone(self.permissionService.get("NotExists"))
+        kind_permission = "NotExists"
+        self.get_permission_error(kind_permission)
 
     def test_update_permission(self):
         create_permission = self.permissionService.create("Create")
@@ -28,7 +29,12 @@ class TestPermissionService(TestConfig):
         self.permissionService.create("Read")
         self.assertIsNotNone(self.permissionService.get("Read"))
         self.permissionService.delete("Read")
-        self.assertIsNone(self.permissionService.get("Read"))
+        self.get_permission_error("Read")
+
+    def get_permission_error(self, kind_permission):
+        with self.assertRaises(NoResultFound) as error:
+            self.permissionService.get(kind_permission)
+        self.assertEqual(str(error.exception), "Permission '" + kind_permission + "' not found")
 
     def test_delete_permission_that_not_exists(self):
         kind_permission = "NotExists"

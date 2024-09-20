@@ -36,7 +36,7 @@ class TestIdentityProviderService(TestConfig):
         self.assertEqual(str(error.exception), "Identity Provider with name '" + amazon_ad + "' not found")
 
     def test_update_idp_with_non_existant_attribute(self):
-        google = self.identityProviderService.create(**self.google)
+        self.identityProviderService.create(**self.google)
         with self.assertRaises(AttributeError) as error:
             self.identityProviderService.update(self.google["name"], non_existant_attribute="2j3n")
         self.assertEqual(str(error.exception), "Identity Provider object has no attribute of Type:'non_existant_attribute'")

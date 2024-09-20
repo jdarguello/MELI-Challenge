@@ -10,7 +10,9 @@ class PermissionService:
         return new_permission
     
     def get(self, kind):
-        return db.session.query(Permission).filter_by(kind=kind).first()
+        permission = db.session.query(Permission).filter_by(kind=kind).first()
+        self.not_found_error(permission, kind)
+        return permission
     
     def update(self, kind, new_kind):
         permission = self.get(kind)
@@ -20,6 +22,9 @@ class PermissionService:
     
     def delete(self, kind):
         permission = self.get(kind)
+        self.not_found_error(permission, kind)
+        db.session.delete(permission)
+    
+    def not_found_error(self, permission, kind):
         if permission is None:
             raise NoResultFound("Permission '" + kind + "' not found")
-        db.session.delete(permission)
