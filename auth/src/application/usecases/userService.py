@@ -1,20 +1,43 @@
 from src.domain.entities.user import User
+from src.application.usecases.role_service import RoleService
+from src.application.usecases.identity_provider_service import IdentityProviderService
+from sqlalchemy.orm.exc import NoResultFound
+from src.root import db
 
 class UserService:
-    def __init__(self, user: User):
-        self.user = user
+    def __init__(self):
+        self.role_service = RoleService()
+        self.identity_provider_service = IdentityProviderService()
 
-    def create_user(self, user_data):
-        self.user.create_user(user_data)
+    def create(self, name, description, type_id, scope_id):
+        new_role = Role(name=name, 
+            description=description, 
+            type=self.type_service.get(type_id), 
+            scope=self.scope_service.get(scope_id))
+        db.session.add(new_role)
+        db.session.commit()
+        return new_role
     
-    def get_user(self, user_id):
-        return self.user.get_user(user_id)
+    def get_by_id(self, role_id):
+        role = db.session.query(Role).filter_by(roleId=role_id).first()
+        self._not_found_error(role, role_id)
+        return role
     
-    def get_users(self):
-        return self.user.get_users()
+    def get_by_scope(self, scope_id):
+        return db.session.query(Role).filter_by(scope=self.scope_service.get(scope_id)).all()
+
+    def update(self, role_id, new_name=None, new_description=None):
+        role = self.get_by_id(role_id)
+        role.name = new_name if new_name is not None else role.name
+        role.description = new_description if new_description is not None else role.description
+        db.session.commit()
+        return role
+
+    def delete(self, role_id):
+        role = self.get_by_id(role_id)
+        self._not_found_error(role, role_id)
+        db.session.delete(role)
     
-    def update_user(self, user_id, user_data):
-        return self.user.update_user(user_id, user_data)
-    
-    def delete_user(self, user_id):
-        return self.user.delete_user(user_id)
+    def _not_found_error(self, role, role_id):
+        if role is None:
+            raise NoResultFound("Role with roleId=" + str(role_id) + " not found")

@@ -11,6 +11,14 @@ class TestConfigApplication(TestConfig):
         self.setup_types()
         self.setup_scopes()
 
+        self.roles = [
+            {"name": "VP Colombia", "description": "Vice Presidento Corporativo - Filial Colombia", "type_id": self.types[0]["typeId"], "scope_id": self.scopes[0]["scopeId"]},
+            {"name": "Full-stack", "description": "Desarrollador full-stack", "type_id": self.types[1]["typeId"], "scope_id": self.scopes[0]["scopeId"]},
+            {"name": "VP Brasil", "description": "Vice Presidento Corporativo - Filial Brasil", "type_id": self.types[0]["typeId"], "scope_id": self.scopes[1]["scopeId"]},
+            {"name": "Full-stack BR", "description": "Desarrollador full-stack", "type_id": self.types[1]["typeId"], "scope_id": self.scopes[1]["scopeId"]}
+        ]
+        
+
     def setup_permissions(self):
         permission_service = PermissionService()
         for kind in ["Create", "Read", "Update", "Delete"]:
