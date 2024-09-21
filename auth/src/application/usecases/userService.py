@@ -9,35 +9,66 @@ class UserService:
         self.role_service = RoleService()
         self.identity_provider_service = IdentityProviderService()
 
-    def create(self, name, description, type_id, scope_id):
-        new_role = Role(name=name, 
-            description=description, 
-            type=self.type_service.get(type_id), 
-            scope=self.scope_service.get(scope_id))
-        db.session.add(new_role)
+    def create(self, email, token, token_expiry_date, identity_provider_id):
+        new_user = User(email=email,
+            token=token,
+            token_expiry_date=token_expiry_date,
+            identity_provider=self.identity_provider_service.get_by_id(identity_provider_id))
+        db.session.add(new_user)
         db.session.commit()
-        return new_role
-    
-    def get_by_id(self, role_id):
-        role = db.session.query(Role).filter_by(roleId=role_id).first()
-        self._not_found_error(role, role_id)
-        return role
-    
-    def get_by_scope(self, scope_id):
-        return db.session.query(Role).filter_by(scope=self.scope_service.get(scope_id)).all()
+        return new_user
 
-    def update(self, role_id, new_name=None, new_description=None):
-        role = self.get_by_id(role_id)
-        role.name = new_name if new_name is not None else role.name
-        role.description = new_description if new_description is not None else role.description
+    def get_by_id(self, user_id):
+        user = db.session.query(User).filter_by(userId=user_id).first()
+        self._not_found_error(user, user_id)
+        return user
+    
+    def get_by_email(self, email):
+        user = db.session.query(User).filter_by(email=email).first()
+        self._not_found_error(user, email=email)
+        return user
+    
+    def get_all_by_idp(self, idp_id):
+        return db.session.query(User).filter_by(identityProviderId=idp_id).all()
+    
+    def assign_role(self, user_id, role_id):
+        user = self.get_by_id(user_id)
+        role = self.role_service.get_by_id(role_id)
+        if self.has_role(user, role):
+            return user
+        user.roles.append(role)
         db.session.commit()
-        return role
-
-    def delete(self, role_id):
-        role = self.get_by_id(role_id)
-        self._not_found_error(role, role_id)
-        db.session.delete(role)
+        return user
     
-    def _not_found_error(self, role, role_id):
-        if role is None:
-            raise NoResultFound("Role with roleId=" + str(role_id) + " not found")
+    def remove_role(self, user_id, role_id):
+        user = self.get_by_id(user_id)
+        role = self.role_service.get_by_id(role_id)
+        if not self.has_role(user, role):
+            return user
+        user.roles.remove(role)
+        db.session.commit()
+        return user
+    
+    def has_role(self, user, role):
+        return role in user.roles
+
+    def update(self, user_id, email=None, token=None, token_expiry_date=None):
+        user = self.get_by_id(user_id)
+        for attr in [("email", email), ("token", token), ("token_expiry_date", token_expiry_date)]:
+            if attr[1] is not None:
+                setattr(user, attr[0], attr[1])
+        db.session.commit()
+        return user
+
+    def delete(self, user_id):
+        user = self.get_by_id(user_id)
+        self._not_found_error(user, user_id)
+        db.session.delete(user)
+    
+    def _not_found_error(self, user, user_id=None, email=None):
+        if user is None and user_id is not None:
+            raise NoResultFound("User with userId=" + str(user_id) + " not found")
+        elif user is None and email is not None:
+            raise NoResultFound("User with email=" + email + " not found")
+        elif user is None:
+            raise NoResultFound("User not found. userId=" + str(user_id) + ", email=" + email)

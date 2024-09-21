@@ -9,18 +9,21 @@ class IdentityProviderService:
         db.session.commit()
         return new_idp
     
-    def get(self, name):
+    def get_by_id(self, id):
+        return db.session.query(IdentityProvider).filter_by(identityProviderId=id).first()
+    
+    def get_by_name(self, name):
         return db.session.query(IdentityProvider).filter_by(name=name).first()
     
     def update(self, name, **kwargs):
-        idp = self.get(name)
+        idp = self.get_by_name(name)
         self.no_result_found_error(idp, name)
         [setattr(idp, key, value) for key, value in kwargs.items() if not self.no_attribute_error(idp, key)]
         db.session.commit()
         return idp
 
     def delete(self, name):
-        idp = self.get(name)
+        idp = self.get_by_name(name)
         self.no_result_found_error(idp, name)
         db.session.delete(idp)
     

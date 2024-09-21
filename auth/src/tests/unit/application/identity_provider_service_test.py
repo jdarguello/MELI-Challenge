@@ -17,17 +17,21 @@ class TestIdentityProviderService(TestConfig):
             idp = self.identityProviderService.create(**idp_info)
             self.assertIsNotNone(idp.identityProviderId)
             self.assertEqual(idp.name, idp_info["name"])
-            self.assertEqual(idp.clientId, self.identityProviderService.get(idp.name).clientId)
+            self.assertEqual(idp.clientId, self.identityProviderService.get_by_name(idp.name).clientId)
     
     def test_get_idp_that_not_exists(self):
-        self.assertIsNone(self.identityProviderService.get("NotExists"))
+        self.assertIsNone(self.identityProviderService.get_by_name("NotExists"))
+
+    def test_get_idp_by_id(self):
+        google = self.identityProviderService.create(**self.google)
+        self.assertEqual(google.identityProviderId, self.identityProviderService.get_by_id(google.identityProviderId).identityProviderId)
     
     def test_update_idp(self):
         google = self.identityProviderService.create(**self.google)
 
         new_google = self.identityProviderService.update(google.name, clientSecret="2j3n")
         self.assertEqual(google.identityProviderId, new_google.identityProviderId)
-        self.assertEqual("2j3n", self.identityProviderService.get(self.google["name"]).clientSecret)
+        self.assertEqual("2j3n", self.identityProviderService.get_by_name(self.google["name"]).clientSecret)
     
     def test_update_idp_that_not_exists(self):
         amazon_ad = "Amazon Active Directory"
@@ -43,9 +47,9 @@ class TestIdentityProviderService(TestConfig):
 
     def test_delete_idp_that_exists(self):
         facebook = self.identityProviderService.create(**self.facebook)
-        self.assertIsNotNone(self.identityProviderService.get(facebook.name))
+        self.assertIsNotNone(self.identityProviderService.get_by_name(facebook.name))
         self.identityProviderService.delete(facebook.name)
-        self.assertIsNone(self.identityProviderService.get(facebook.name))
+        self.assertIsNone(self.identityProviderService.get_by_name(facebook.name))
 
     def test_delete_permission_that_not_exists(self):
         amazon_ad = "Amazon Active Directory"
