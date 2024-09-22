@@ -7,35 +7,13 @@ class TestUserService(TestConfigApplication):
     def setUp(self):
         super().setUp()
         self.userService = UserService()
-
-        # Roles
-        for role_info in self.roles:
-            role = self.userService.role_service.create(**role_info)
-            role_info["roleId"] = role.roleId
-        
-        # Identity Providers
-        self.idps = [
-            {"clientId": "10394", "name": "Google", "clientSecret": "1j3n", "baseUrl": "https://www.google.com", "tokenUrl": "https://www.google.com/oauth/token", "authorizationUrl": "https://www.google.com/oauth/authorize", "redirectUrl": "https://www.google.com/oauth/redirect"},
-            {"clientId": "10395", "name": "Facebook", "clientSecret": "1j3n", "baseUrl": "https://www.facebook.com", "tokenUrl": "https://www.facebook.com/oauth/token", "authorizationUrl": "https://www.facebook.com/oauth/authorize", "redirectUrl": "https://www.facebook.com/oauth/redirect"},
-            {"clientId": "10396", "name": "Twitter", "clientSecret": "1j3n", "baseUrl": "https://www.twitter.com", "tokenUrl": "https://www.twitter.com/oauth/token", "authorizationUrl": "https://www.twitter.com/oauth/authorize", "redirectUrl": "https://www.twitter.com/oauth/redirect"}
-        ]
-        for idp_info in self.idps:
-            idp = self.userService.identity_provider_service.create(**idp_info)
-            idp_info["identityProviderId"] = idp.identityProviderId
-
-        # Usuarios
-        self.users = [
-            {"email": "jon_doe@example.com", "token": "2234eu3n2j23", "token_expiry_date": datetime.strptime('2024-12-31', '%Y-%m-%d').date(), "identity_provider_id": self.idps[0]["identityProviderId"]},
-            {"email": "johana@example.com", "token": "2jn33h3h33j3j", "token_expiry_date": datetime.strptime('2024-12-30', '%Y-%m-%d').date(), "identity_provider_id": self.idps[1]["identityProviderId"]},
-            {"email": "susan@example.com", "token": "2jn33h3h33j3j", "token_expiry_date": datetime.strptime('2024-12-30', '%Y-%m-%d').date(), "identity_provider_id": self.idps[1]["identityProviderId"]},
-        ]
+        self.setup_user_test_info()
 
     def test_create_and_get_user_with_role_and_idp(self):
         john = self.userService.create(**self.users[0])
         john_db = self.userService.get_by_id(john.userId)
-        self.assertEqual(john_db.email, self.users[0]["email"])
+        self.assertEqual(john_db.username, self.users[0]["username"])
         self.assertEqual(john_db.token, self.users[0]["token"])
-        self.assertEqual(john_db.token_expiry_date, self.users[0]["token_expiry_date"])
         self.assertEqual(john_db.identity_provider.identityProviderId, self.idps[0]["identityProviderId"])
 
         john = self.userService.assign_role(john.userId, self.roles[0]["roleId"])
@@ -51,8 +29,8 @@ class TestUserService(TestConfigApplication):
         self.userService.create(**self.users[2])
         users = self.userService.get_all_by_idp(self.idps[1]["identityProviderId"])
         self.assertEqual(len(users), 2)
-        self.assertEqual(users[0].email, self.users[1]["email"])
-        self.assertEqual(users[1].email, self.users[2]["email"])
+        self.assertEqual(users[0].username, self.users[1]["username"])
+        self.assertEqual(users[1].username, self.users[2]["username"])
     
     def test_assign_and_remove_role_to_user(self):
         john = self.userService.create(**self.users[0])
@@ -68,11 +46,10 @@ class TestUserService(TestConfigApplication):
 
     def test_update_user(self):
         john = self.userService.create(**self.users[0])
-        john = self.userService.update(john.userId, token="new1233", token_expiry_date=datetime.strptime('2024-12-29', '%Y-%m-%d').date())
+        john = self.userService.update(john.userId, token="new1233")
         john_db = self.userService.get_by_id(john.userId)
-        self.assertEqual(john_db.email, self.users[0]["email"])
+        self.assertEqual(john_db.username, self.users[0]["username"])
         self.assertEqual(john_db.token, "new1233")
-        self.assertEqual(john_db.token_expiry_date, datetime.strptime('2024-12-29', '%Y-%m-%d').date())
         
     def test_delete_user_that_exists(self):
         johan = self.userService.create(**self.users[1])

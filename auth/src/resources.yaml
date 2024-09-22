@@ -1,6 +1,6 @@
 config:
   env: tests
-  type: functional
+  type: integration
 
 tests:
   testing: true
@@ -12,17 +12,26 @@ tests:
       secret: secret
   integration:
     db:
-      uri: postgresql://username:password@localhost/mydatabase
+      uri: sqlite:///:memory?check_same_thread=False
       secret: secret
+    cache:
       host: localhost
-      port: 5432
-      user: postgres
-      password: postgres
-      database: test
+      port: 6379
+      reset: True
+      db: 0
   functional:
     db:
-      uri: sqlite:///users.sqlite3
-      secret: secret
+      uri: postgresql://test_user:test123@localhost/meli-challenge
+      host: localhost
+      port: 5432
+      user: test_user
+      password: test123
+      database: meli-challenge
+    cache:
+      host: localhost
+      port: 6379
+      reset: False
+      db: 1 # Separación con bases de datos de tests de integración
 
 prod:
   testing: false

@@ -39,19 +39,17 @@ class TestRoleUserIDP(TestConfigDomain):
             clientId='your-google-client-id',  # Replace with your actual Google client ID
             name='Google',
             clientSecret='your-google-client-secret',  # Replace with your actual Google client secret
-            baseUrl='https://accounts.google.com',
-            tokenUrl='https://oauth2.googleapis.com/token',
-            authorizationUrl='https://accounts.google.com/o/oauth2/auth',
-            redirectUrl='https://your-app.com/oauth2callback'  # Replace with your app's redirect URI
+            tokenValidationUrl='https://www.googleapis.com/oauth2/v1/tokeninfo',
+            tokenExpiryTime=3600
         )
 
     def test_create_one_user_with_1_role_idp(self):
         # Crea una instancia de User, la relaciona con el IdentityProvider Google y el Rol Admin
         date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
         user = User(
-            email='john@example.com',
+            username='john@example.com',
             token='1j2be3b43h4b3h4',
-            token_expiry_date=date,
+            tokenExpiryStart=datetime.now(),
             identity_provider=self.google_provider
         )
         user.roles.append(self.admin_role)
@@ -59,12 +57,11 @@ class TestRoleUserIDP(TestConfigDomain):
         self.db.session.commit()
 
         # Verifica que el usuario se haya creado correctamente con el rol y el IdentityProvider asociado
-        saved_user = self.db.session.query(User).filter_by(email='john@example.com').first()
+        saved_user = self.db.session.query(User).filter_by(username='john@example.com').first()
         self.assertIsNotNone(saved_user)
-        self.assertEqual(saved_user.email, user.email)
+        self.assertEqual(saved_user.username, user.username)
         self.assertEqual(saved_user.identity_provider.name, user.identity_provider.name)
         self.assertEqual(saved_user.token, user.token)
-        self.assertEqual(saved_user.token_expiry_date, date)
         self.assertEqual(len(saved_user.roles), 1)
         self.assertEqual(saved_user.roles[0].name, self.admin_role.name)
 
@@ -73,9 +70,9 @@ class TestRoleUserIDP(TestConfigDomain):
         # Crea una instancia de User, la relaciona con el IdentityProvider Google y los Roles Admin y FullStack
         date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
         user = User(
-            email='john_doe@example.com',
+            username='john_doe@example.com',
             token='123nj343h432432k4p',
-            token_expiry_date=date,
+            tokenExpiryStart=datetime.now(),
             identity_provider=self.google_provider
         )
         user.roles.append(self.admin_role)
@@ -84,9 +81,9 @@ class TestRoleUserIDP(TestConfigDomain):
         self.db.session.commit()
 
         # Verifica que el usuario se haya creado correctamente con los dos roles y el IdentityProvider asociado
-        saved_user = self.db.session.query(User).filter_by(email='john_doe@example.com').first()
+        saved_user = self.db.session.query(User).filter_by(username='john_doe@example.com').first()
         self.assertIsNotNone(saved_user)
-        self.assertEqual(saved_user.email, user.email)
+        self.assertEqual(saved_user.username, user.username)
         self.assertEqual(saved_user.identity_provider.name, user.identity_provider.name)
         self.assertEqual(len(saved_user.roles), 2)
         role_names = [role.name for role in saved_user.roles]

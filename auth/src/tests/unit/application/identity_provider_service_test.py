@@ -8,9 +8,9 @@ class TestIdentityProviderService(TestConfig):
         self.identityProviderService = IdentityProviderService()
 
         # idps
-        self.google = {"clientId": "10394", "name": "Google", "clientSecret": "1j3n", "baseUrl": "https://www.google.com", "tokenUrl": "https://www.google.com/oauth/token", "authorizationUrl": "https://www.google.com/oauth/authorize", "redirectUrl": "https://www.google.com/oauth/redirect"}
-        self.facebook = {"clientId": "10395", "name": "Facebook", "clientSecret": "1j3n", "baseUrl": "https://www.facebook.com", "tokenUrl": "https://www.facebook.com/oauth/token", "authorizationUrl": "https://www.facebook.com/oauth/authorize", "redirectUrl": "https://www.facebook.com/oauth/redirect"}
-        self.twitter = {"clientId": "10396", "name": "Twitter", "clientSecret": "1j3n", "baseUrl": "https://www.twitter.com", "tokenUrl": "https://www.twitter.com/oauth/token", "authorizationUrl": "https://www.twitter.com/oauth/authorize", "redirectUrl": "https://www.twitter.com/oauth/redirect"}
+        self.google = {"clientId": "10394", "name": "Google", "clientSecret": "1j3n", "tokenValidationUrl": "https://www.google.com", "tokenExpiryTime": 3600}
+        self.facebook = {"clientId": "10395", "name": "Facebook", "clientSecret": "1j3n", "tokenValidationUrl": "https://www.facebook.com", "tokenExpiryTime": 900}
+        self.twitter = {"clientId": "10396", "name": "Twitter", "clientSecret": "1j3n", "tokenValidationUrl": "https://www.twitter.com", "tokenExpiryTime": 1800}
 
     def test_create_and_get_idps(self):
         for idp_info in [self.google, self.facebook, self.twitter]:

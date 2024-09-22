@@ -1,8 +1,8 @@
 import os
 import inspect
 import importlib
-from src.infraestructure.adapters.auth import AuthAdapter
-from src.infraestructure.adapters.user import UserAdapter
+from src.infraestructure.adapters.inbound.auth import AuthAdapter
+from src.infraestructure.adapters.inbound.user import UserAdapter
 from src.root import app
 
 # Construcción de la aplicación

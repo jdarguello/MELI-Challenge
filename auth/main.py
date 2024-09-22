@@ -5,4 +5,4 @@ from src.root import get_env_vars
 if __name__ == "__main__":
     env = get_env_vars()
     application = App()
-    application.app.run(debug=env["debug"])
+    application.flask_app.run(debug=env["debug"])

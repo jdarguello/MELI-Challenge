@@ -9,10 +9,8 @@ class TestIdentityProvider(TestConfig):
             clientId='test_client_id',
             name='Test Identity Provider',
             clientSecret='test_client_secret',
-            baseUrl='https://example.com/base',
-            tokenUrl='https://example.com/token',
-            authorizationUrl='https://example.com/authorize',
-            redirectUrl='https://example.com/redirect'
+            tokenValidationUrl='https://example.com/token',
+            tokenExpiryTime=3600,
         )
         
         # Add the instance to the session and commit it
@@ -27,7 +25,5 @@ class TestIdentityProvider(TestConfig):
         self.assertEqual(saved_identity_provider.clientId, 'test_client_id')
         self.assertEqual(saved_identity_provider.name, 'Test Identity Provider')
         self.assertEqual(saved_identity_provider.clientSecret, 'test_client_secret')
-        self.assertEqual(saved_identity_provider.baseUrl, 'https://example.com/base')
-        self.assertEqual(saved_identity_provider.tokenUrl, 'https://example.com/token')
-        self.assertEqual(saved_identity_provider.authorizationUrl, 'https://example.com/authorize')
-        self.assertEqual(saved_identity_provider.redirectUrl, 'https://example.com/redirect')
+        self.assertEqual(saved_identity_provider.tokenValidationUrl, 'https://example.com/token')
+        self.assertEqual(saved_identity_provider.tokenExpiryTime, 3600)

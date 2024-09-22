@@ -2,6 +2,7 @@ from src.domain.entities.user import User
 from src.application.usecases.role_service import RoleService
 from src.application.usecases.identity_provider_service import IdentityProviderService
 from sqlalchemy.orm.exc import NoResultFound
+from datetime import datetime
 from src.root import db
 
 class UserService:
@@ -9,10 +10,10 @@ class UserService:
         self.role_service = RoleService()
         self.identity_provider_service = IdentityProviderService()
 
-    def create(self, email, token, token_expiry_date, identity_provider_id):
-        new_user = User(email=email,
+    def create(self, username, token, identity_provider_id):
+        new_user = User(username=username,
             token=token,
-            token_expiry_date=token_expiry_date,
+            tokenExpiryStart=datetime.now(),
             identity_provider=self.identity_provider_service.get_by_id(identity_provider_id))
         db.session.add(new_user)
         db.session.commit()
@@ -23,9 +24,9 @@ class UserService:
         self._not_found_error(user, user_id)
         return user
     
-    def get_by_email(self, email):
-        user = db.session.query(User).filter_by(email=email).first()
-        self._not_found_error(user, email=email)
+    def get_by_username(self, username):
+        user = db.session.query(User).filter_by(username=username).first()
+        self._not_found_error(user, username=username)
         return user
     
     def get_all_by_idp(self, idp_id):
@@ -52,9 +53,9 @@ class UserService:
     def has_role(self, user, role):
         return role in user.roles
 
-    def update(self, user_id, email=None, token=None, token_expiry_date=None):
+    def update(self, user_id, email=None, token=None):
         user = self.get_by_id(user_id)
-        for attr in [("email", email), ("token", token), ("token_expiry_date", token_expiry_date)]:
+        for attr in [("email", email), ("token", token)]:
             if attr[1] is not None:
                 setattr(user, attr[0], attr[1])
         db.session.commit()
@@ -65,10 +66,10 @@ class UserService:
         self._not_found_error(user, user_id)
         db.session.delete(user)
     
-    def _not_found_error(self, user, user_id=None, email=None):
+    def _not_found_error(self, user, user_id=None, username=None):
         if user is None and user_id is not None:
             raise NoResultFound("User with userId=" + str(user_id) + " not found")
-        elif user is None and email is not None:
-            raise NoResultFound("User with email=" + email + " not found")
+        elif user is None and username is not None:
+            raise NoResultFound("User with username=" + username + " not found")
         elif user is None:
-            raise NoResultFound("User not found. userId=" + str(user_id) + ", email=" + email)
+            raise NoResultFound("User not found. userId=" + str(user_id) + ", username=" + username)

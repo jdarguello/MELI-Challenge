@@ -17,6 +17,29 @@ class TestConfigApplication(TestConfig):
             {"name": "VP Brasil", "description": "Vice Presidento Corporativo - Filial Brasil", "type_id": self.types[0]["typeId"], "scope_id": self.scopes[1]["scopeId"]},
             {"name": "Full-stack BR", "description": "Desarrollador full-stack", "type_id": self.types[1]["typeId"], "scope_id": self.scopes[1]["scopeId"]}
         ]
+    
+    def setup_user_test_info(self):
+        # Roles
+        for role_info in self.roles:
+            role = self.userService.role_service.create(**role_info)
+            role_info["roleId"] = role.roleId
+        
+        # Identity Providers
+        self.idps = [
+            {"clientId": "10394", "name": "Google", "clientSecret": "1j3n", "tokenValidationUrl": "https://www.google.com", "tokenExpiryTime": 3600},
+            {"clientId": "10395", "name": "Facebook", "clientSecret": "1j3n", "tokenValidationUrl": "https://www.facebook.com", "tokenExpiryTime": 900},
+            {"clientId": "10396", "name": "Twitter", "clientSecret": "1j3n", "tokenValidationUrl": "https://www.twitter.com", "tokenExpiryTime": 1800}
+        ]
+        for idp_info in self.idps:
+            idp = self.userService.identity_provider_service.create(**idp_info)
+            idp_info["identityProviderId"] = idp.identityProviderId
+
+        # Usuarios
+        self.users = [
+            {"username": "jon_doe@example.com", "token": "2234eu3n2j23", "identity_provider_id": self.idps[0]["identityProviderId"]},
+            {"username": "johana@example.com", "token": "2jn33h3h33j3j", "identity_provider_id": self.idps[1]["identityProviderId"]},
+            {"username": "susan@example.com", "token": "2jn33h3h33j3j",  "identity_provider_id": self.idps[1]["identityProviderId"]},
+        ]
         
 
     def setup_permissions(self):

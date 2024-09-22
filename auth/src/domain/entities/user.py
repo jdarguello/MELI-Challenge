@@ -1,12 +1,13 @@
 from src.root import db
 from src.domain.entities.user_role import user_role
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class User(db.Model):
+    __tablename__ = 'app_user'
     userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(255), nullable=False)
     token = db.Column(db.String(255), nullable=False)
-    token_expiry_date = db.Column(db.Date, nullable=False)
+    tokenExpiryStart = db.Column(db.Date, nullable=False)
 
     # Nullable foreign key to IdentityProvider
     identityProviderId = db.Column(db.Integer, db.ForeignKey('identity_provider.identityProviderId'), nullable=True)
@@ -22,5 +23,5 @@ class User(db.Model):
     )
 
     def valid_token(self):
-        # Debe retornar un booleano, comparando la fecha actual con la fecha de expiración del token
-        return self.token_expiry_date > datetime.now()
+        # Debe retornar un booleano, comparando la fecha actual con la token_expiry_start + el tokenExpiryTime (tiempo en segundos)
+        return self.tokenExpiryStart + timedelta(seconds=self.identity_provider.tokenExpiryTime) > datetime.now()

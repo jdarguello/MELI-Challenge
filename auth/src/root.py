@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import redis
 import yaml
 
 # Inicialización de la aplicación y servicios externos (bd, cache, etc)
@@ -11,13 +12,27 @@ class Config:
         self.SQLALCHEMY_DATABASE_URI = env["db"]["uri"]
         self.SQLALCHEMY_TRACK_MODIFICATIONS = env["track_modifications"]
         self.SECRET_KEY = env["db"]["secret"]
+
+        self.cache = None
+        if "cache" in env:
+            self.cache = {
+                "host": env["cache"]["host"],
+                "port": env["cache"]["port"],
+                "db": env["cache"]["db"],
+            }
     
     # Inicialización
     def setup(self):
         app = Flask(__name__)
         app.config.from_object(self)
         db = SQLAlchemy(app)
-        return app, db
+        cache = self.setup_cache()
+        return app, db, cache
+    
+    def setup_cache(self):
+        if self.cache is None:
+            return None
+        return redis.Redis(**self.cache)
 
     # Cambio de configuración de la base de datos
     def switch_db(self, app, db):
@@ -39,12 +54,19 @@ def get_env_vars(variables=None):
     if variables is None:
         variables = args["config"]
     if variables["env"] != "prod":
-        db_args = args[variables["env"]][variables["type"]]["db"]
-        for arg in ["unit", "integration", "functional"]:
-            args[variables["env"]].pop(arg)
-        args[variables["env"]]["db"] = db_args
-        return args[variables["env"]]
+        return set_env_vars(args, variables, "cache" in args[variables["env"]][variables["type"]])
     return args["prod"]
 
+def set_env_vars(args, variables, cache):
+    db_args = args[variables["env"]][variables["type"]]["db"]
+    if cache:
+        cache_args = args[variables["env"]][variables["type"]]["cache"]
+    for arg in ["unit", "integration", "functional"]:
+        args[variables["env"]].pop(arg)
+    args[variables["env"]]["db"] = db_args
+    if cache:
+        args[variables["env"]]["cache"] = cache_args
+    return args[variables["env"]]
+
 # Inicialización de la aplicación y de la base de datos
-app, db = Config(get_env_vars()).setup()
+app, db, cache = Config(get_env_vars()).setup()
