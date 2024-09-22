@@ -12,3 +12,13 @@ class Permission(db.Model):
         back_populates='permissions',
         lazy="noload"
     )
+
+    def to_dict(self):
+        return {
+            "permissionId": self.permissionId,
+            "kind": self.kind
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)

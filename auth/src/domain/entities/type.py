@@ -1,5 +1,6 @@
 from src.root import db
 from src.domain.entities.role import Role
+from src.domain.entities.permission import Permission
 from src.domain.entities.type_permission import type_permission
 
 class Type(db.Model):
@@ -16,3 +17,19 @@ class Type(db.Model):
         'Permission', 
         secondary=type_permission, 
     )
+
+    def to_dict(self):
+        return {
+            "typeId": self.typeId,
+            "name": self.name,
+            "description": self.description,
+            "weight": self.weight,
+            "permissions": [permission.to_dict() for permission in self.permissions]
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        permissions_raw = data.pop("permissions")
+        return cls(**data, permissions=[Permission.from_dict(permission) for permission in permissions_raw])
+
+Role.type_from_dict = classmethod(lambda cls, data: Type.from_dict(data))

@@ -10,4 +10,18 @@ class IdentityProvider(db.Model):
 
     # One-to-many relationship with User (without cascade)
     users = db.relationship('User', back_populates='identity_provider', lazy='select')
+
+    def to_dict(self):
+        return {
+            "identityProviderId": self.identityProviderId,
+            "clientId": self.clientId,
+            "name": self.name,
+            "clientSecret": self.clientSecret,
+            "tokenValidationUrl": self.tokenValidationUrl,
+            "tokenExpiryTime": self.tokenExpiryTime
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)
     

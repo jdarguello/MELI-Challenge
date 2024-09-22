@@ -66,7 +66,7 @@ class TestRoleUserIDP(TestConfigDomain):
         self.assertEqual(saved_user.roles[0].name, self.admin_role.name)
 
     
-    def test_create_one_user_with_2_role_idp(self):
+    def test_create_one_user_with_2_role_idp_and_serialization(self):
         # Crea una instancia de User, la relaciona con el IdentityProvider Google y los Roles Admin y FullStack
         date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
         user = User(
@@ -94,3 +94,22 @@ class TestRoleUserIDP(TestConfigDomain):
         self.assertEqual(user.roles[0].scope.name, self.admin_role.scope.name)
         self.assertEqual(user.roles[1].scope.name, self.fullstack_role.scope.name)
         self.assertEqual(user.roles[0].type.permissions[0].kind, self.admin.permissions[0].kind)
+
+        # Serializa el usuario y verifica que la serialización sea correcta
+        user_dict = user.to_dict()
+        self.assertEqual(user_dict['username'], user.username)
+        self.assertEqual(user_dict['identityProvider']['name'], user.identity_provider.name)
+        self.assertEqual(len(user_dict['roles']), 2)
+        role_names = [role['name'] for role in user_dict['roles']]
+        self.assertIn(user.roles[0].name, role_names)
+        self.assertIn(user.roles[1].name, role_names)
+        self.assertEqual(user_dict['roles'][0]['type']['name'], self.admin_role.type.name)
+
+        # Deserializa el usuario y verifica que la deserialización sea correcta
+        user_from_dict = User.from_dict(user_dict)
+        self.assertEqual(user_from_dict.username, user.username)
+        self.assertEqual(user_from_dict.identity_provider.name, user.identity_provider.name)
+        self.assertEqual(len(user_from_dict.roles), 2)
+        role_names = [role.name for role in user_from_dict.roles]
+        self.assertIn(user.roles[0].name, role_names)
+        self.assertIn(user.roles[1].name, role_names)

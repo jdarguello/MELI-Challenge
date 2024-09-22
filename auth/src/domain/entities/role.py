@@ -21,3 +21,20 @@ class Role(db.Model):
         secondary=user_role,
         lazy="noload"
     )
+
+    def to_dict(self):
+        return {
+            "roleId": self.roleId,
+            "name": self.name,
+            "description": self.description,
+            "type": self.type.to_dict(),
+            "scope": self.scope.to_dict()
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        type = cls.type_from_dict(data.pop("type"))
+        scope = cls.scope_from_dict(data.pop("scope"))
+        return cls(**data, type=type, scope=scope)
+
+User.role_from_dict = classmethod(lambda cls, data: Role.from_dict(data))
