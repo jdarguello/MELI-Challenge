@@ -1,13 +1,11 @@
 from src.application.usecases.userService import UserService
+from src.application.usecases.cache_service import CacheService
 
+# Objetivo: validar la integridad de las credenciales del usuario, contrastarlo con el cache y, si es necesario, con la bd relacional
 class AuthManager:
     def __init__(self):
         self.userService = UserService()
+        self.cacheService = CacheService()
 
-    def login(self, email: str, token: str):
-        user = self.userService.get_user_by_email(email)
-        if user is None:
-            return None
-        if user.password != password:
-            return None
-        return user
+    def valid_credentials(self, username, token):
+        
