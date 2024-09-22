@@ -15,9 +15,12 @@ class UserService:
             token=token,
             tokenExpiryStart=datetime.now(),
             identity_provider=self.identity_provider_service.get_by_id(identity_provider_id))
-        db.session.add(new_user)
+        return self.create_by_user(new_user)
+    
+    def create_by_user(self, user):
+        db.session.add(user)
         db.session.commit()
-        return new_user
+        return user
 
     def get_by_id(self, user_id):
         user = db.session.query(User).filter_by(userId=user_id).first()

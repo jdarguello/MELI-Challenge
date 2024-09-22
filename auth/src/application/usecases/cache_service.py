@@ -9,11 +9,14 @@ class CacheService:
     def __init__(self):
         self.user_service = UserService()
 
-    def set_user(self, user_id, user):
-        cache.set(user_id, json.dumps(user.to_dict(), default=self._date_serializer))
+    def set_user(self, username, user):
+        cache.set(username, json.dumps(user.to_dict(), default=self._date_serializer))
     
-    def get_user(self, user_id):
-        user = self._date_deserializer(User.from_dict(json.loads(cache.get(user_id))))
+    def get_user(self, username):
+        user_raw = cache.get(username)
+        if user_raw is None:
+            return None
+        user = self._date_deserializer(User.from_dict(json.loads(user_raw)))
         return user
     
     def _date_serializer(self, obj):

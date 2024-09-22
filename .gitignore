@@ -3,4 +3,4 @@ auth/instance
 auth/.coverage
 auth/coverage.xml
 auth/env_vars.yaml
-auth/db_files/init_idps.sql
+auth/db_files/init/init_idps.sql
