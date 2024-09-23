@@ -1,6 +1,6 @@
 config:
   env: tests
-  type: functional
+  type: integration
 
 tests:
   testing: true
