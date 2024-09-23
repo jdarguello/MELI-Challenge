@@ -14,7 +14,7 @@ class User(db.Model):
     identityProviderId = db.Column(db.Integer, db.ForeignKey('identity_provider.identityProviderId'), nullable=True)
 
     # Relationship to IdentityProvider
-    identity_provider = db.relationship('IdentityProvider', back_populates='users')
+    identity_provider = db.relationship('IdentityProvider', back_populates='users', lazy='joined')
 
     # Many-to-many relationship with Role
     roles = db.relationship(

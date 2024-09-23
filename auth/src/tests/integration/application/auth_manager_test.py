@@ -19,9 +19,9 @@ class TestAuthManager(TestConfigCache):
         self.assertTrue(self.authManager.valid_credentials(self.john.username, self.john.token))
 
     def test_validate_user_against_cache(self):
-        self.assertFalse(self.authManager.validate_user_against_cache(self.susan.username, self.susan.token))
-        self.assertTrue(self.authManager.validate_user_against_cache(self.john.username, self.john.token))
-        self.assertFalse(self.authManager.validate_user_against_cache(self.john.username, "12jen3j34"))
+        self.assertFalse(self.authManager.validate_user_against_cache(self.susan.username, self.susan.token)[0])
+        self.assertTrue(self.authManager.validate_user_against_cache(self.john.username, self.john.token)[0])
+        self.assertFalse(self.authManager.validate_user_against_cache(self.john.username, "12jen3j34")[0])
     
     def test_register_user_in_cache(self):
         self.assertFalse(self.authManager.cache_service.get_user(self.susan.username))

@@ -9,6 +9,11 @@ class UserService:
     def __init__(self):
         self.role_service = RoleService()
         self.identity_provider_service = IdentityProviderService()
+    
+    def temporal_user(self, username, token, identity_provider_id):
+        return User(username=username,
+            token=token,
+            identityProviderId=identity_provider_id)
 
     def create(self, username, token, identity_provider_id):
         new_user = User(username=username,
@@ -63,6 +68,15 @@ class UserService:
                 setattr(user, attr[0], attr[1])
         db.session.commit()
         return user
+
+    def update_or_create(self, username, token, identity_provider_id):
+        try:
+            user = self.get_by_username(username)
+        except NoResultFound:
+            user = None
+        if user is None:
+            return self.create(username, token, identity_provider_id)
+        return self.update(user.userId, token=token)
 
     def delete(self, user_id):
         user = self.get_by_id(user_id)
