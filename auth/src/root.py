@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
+import re
 import redis
 import yaml
 
@@ -10,7 +11,7 @@ import yaml
 # Configuración de la aplicación y base de datos
 class Config:
     def __init__(self, env):
-        self.TESTING = env["testing"]
+        self.TESTING = env["testing"]   #ERROR!!
         self.SQLALCHEMY_DATABASE_URI = env["db"]["uri"]
         self.SQLALCHEMY_TRACK_MODIFICATIONS = env["track_modifications"]
         self.SECRET_KEY = env["db"]["secret"]
@@ -59,20 +60,31 @@ def get_env_vars(variables=None):
             "env": os.getenv("env"),
             "type": os.getenv("type")
         }
-    if variables["env"] != "prod":
+    if variables["env"] != "prod" and variables["type"] != "functional":
         return set_env_vars(args, variables, "cache" in args[variables["env"]][variables["type"]])
-    return args["prod"]
+    return set_prod_vars(args, variables, True)
 
+# Testing variables
 def set_env_vars(args, variables, cache):
     db_args = args[variables["env"]][variables["type"]]["db"]
     if cache:
         cache_args = args[variables["env"]][variables["type"]]["cache"]
-    for arg in ["unit", "integration", "functional"]:
-        args[variables["env"]].pop(arg)
+    if variables["env"] != "prod":
+        for arg in ["unit", "integration", "functional"]:
+            args[variables["env"]].pop(arg)
     args[variables["env"]]["db"] = db_args
     if cache:
         args[variables["env"]]["cache"] = cache_args
     return args[variables["env"]]
+
+def set_prod_vars(args, variables, cache):
+    args = set_env_vars(args, variables, cache)
+    # Replace dynamic vars with env vars
+    for section in ["db", "cache"]:
+        for key, value in args[section].items():
+            value = os.getenv(value.split(" ")[1])
+            args[section][key] = value
+    return args
 
 # Inicialización de la aplicación y de la base de datos
 app, db, cache = Config(get_env_vars()).setup()

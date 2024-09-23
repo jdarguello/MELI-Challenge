@@ -17,29 +17,32 @@ tests:
       db: 0
   functional:
     db:
-      uri: postgresql://test_user:test123@localhost:5432/meli-challenge
-      secret: secret
-      host: localhost
-      port: 5432
-      user: test_user
-      password: test123
-      database: meli-challenge
+      uri: ${{ DB_URI_TEST }} 
+      secret: ${{ DB_SECRET_TEST }}
+      host: ${{ DB_HOST_TEST }}
+      port: ${{ DB_PORT_TEST }}
+      user: ${{ DB_USER_TEST }}
+      password: ${{ DB_PASSWORD_TEST }}
+      database: ${{ DB_DATABASE_TEST }}
     cache:
-      host: localhost
-      port: 6379
-      reset: False
-      db: 1 # Separación con bases de datos de tests de integración
+      host: ${{ CACHE_HOST_TEST }}
+      port: ${{ CACHE_PORT_TEST }}
+      db: ${{ CACHE_DB_TEST }}
 
 prod:
   testing: false
   track_modifications: false
   debug: false
-  db-data:
+  data:
     db:
-      uri: postgresql://username:password@localhost/mydatabase
-      secret: secret
-      host: localhost
-      port: 5432
-      user: postgres
-      password: postgres
-      database: test
+      uri: ${{ DB_URI_PROD }} 
+      secret: ${{ DB_SECRET_PROD }}
+      host: ${{ DB_HOST_PROD }}
+      port: ${{ DB_PORT_PROD }}
+      user: ${{ DB_USER_PROD }}
+      password: ${{ DB_PASSWORD_PROD }}
+      database: ${{ DB_DATABASE_PROD }}
+    cache:
+      host: ${{ CACHE_HOST_PROD }}
+      port: ${{ CACHE_PORT_PROD }}
+      db: ${{ CACHE_DB_PROD }}
