@@ -40,31 +40,40 @@ class TestAuthFlows(TestConfigInfraestructure):
         # Cambia el token de John para que entre en el flujo de validación de Google
         self.json['token'] = '123456789020393'
         # Define a mock response object with the attributes you need
-        self.mock_response(self.john.username, mock_get)
+        json = {
+            'email': self.john.username,
+            'email_verified': "true",
+            "expires_in": "3568",
+            "avatar_url": "https://www.google.com/auth/userinfo.email"
+        }
+        headers = {'Authorization': f"Bearer {self.json['token']}"}
+        self.mock_response(mock_get, self.john.identity_provider.tokenValidationUrl,
+            json)
 
         response = self.client.post('/api/validate-creds', json=self.json)
 
         # Validar el request con los parámetros correctos
         mock_get.assert_called_once_with(
             self.john.identity_provider.tokenValidationUrl,
-            headers={'Authorization': f"Bearer {self.json['token']}"}
-        )
+            headers=headers)
 
         # Validar el token de John y su información en caché
-        self.assertEqual(response.status_code, 202)
-        self.assertEqual(response.json, {"message": "Token Updated"})
-        user_cache = self.authManager.cache_service.get_user(self.john.username)
-        self.assertEqual(user_cache.token, self.json['token'])
-        self.assertEqual(user_cache.username, self.john.username)
-        user_db = self.authManager.user_service.get_by_username(self.john.username)
-        self.assertEqual(user_db.token, self.json['token'])
-    
+        self.mock_asserts(response, 202, {"message": "Token Updated"}, self.john.username, self.json['token'])
+
     @patch('src.infraestructure.adapters.outbound.oauth.requests.get')
     def test_new_user_Google_validation(self, mock_get):
         # Nuevo usuario: Johana. Sin registros en base de datos ni caché
         self.authManager.user_service.delete(self.johana.userId)
-
-        self.mock_response(self.johana.username, mock_get)
+        
+        json = {
+            'email': self.johana.username,
+            'email_verified': "false",
+            "expires_in": "3567",
+            "avatar_url": "https://www.google.com/authentic/userinfo.email"
+        }
+        headers = {'Authorization': f"Bearer {self.johana.token}"}
+        self.mock_response(mock_get, self.john.identity_provider.tokenValidationUrl,
+            json)
 
         response = self.client.post('/api/validate-creds', json={
             'username': self.johana.username,
@@ -75,19 +84,10 @@ class TestAuthFlows(TestConfigInfraestructure):
         # Validar el request con los parámetros correctos
         mock_get.assert_called_once_with(
             self.johana.identity_provider.tokenValidationUrl,
-            headers={'Authorization': f"Bearer {self.johana.token}"}
-        )
+            headers=headers)
 
         # Validar el token de Johana y su información en caché y en base de datos
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json, {"message": "User registered!"})
-        user_cache = self.authManager.cache_service.get_user(self.johana.username)
-        self.assertEqual(user_cache.token, self.johana.token)
-        self.assertEqual(user_cache.username, self.johana.username)
-        user_db = self.authManager.user_service.get_by_username(self.johana.username)
-        self.assertEqual(user_db.token, self.johana.token)
-        self.assertEqual(user_db.username, self.johana.username)
-        self.assertEqual(user_db.identityProviderId, self.johana.identityProviderId)
+        self.mock_asserts(response, 201, {"message": "User registered!"}, self.johana.username, self.johana.token)
     
     @patch('src.infraestructure.adapters.outbound.oauth.requests.get')
     def test_new_user_GitHub_validation(self, mock_get):
@@ -95,15 +95,15 @@ class TestAuthFlows(TestConfigInfraestructure):
         self.authManager.user_service.delete(self.johana.userId)
 
         # Define a mock response object with the attributes you need
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.json = {
+        json = {
             'login': self.johana.username,
             'id': "true",
             "nodid": "3568",
             "avatar_url": "https://www.github.com/auth/userinfo.email"
         }
-        mock_get.return_value = mock_response
+        headers = {'Authorization': f"Bearer {self.johana.token}"}
+        self.mock_response(mock_get, self.johana.identity_provider.tokenValidationUrl,
+            json)
 
         response = self.client.post('/api/validate-creds', json={
             'username': self.johana.username,
@@ -114,24 +114,22 @@ class TestAuthFlows(TestConfigInfraestructure):
         # Validar el request con los parámetros correctos
         mock_get.assert_called_once_with(
             self.johana.identity_provider.tokenValidationUrl,
-            headers={'Authorization': f"Bearer {self.johana.token}"}
-        )
+            headers=headers)
 
         # Validar el token de Johana y su información en caché y en base de datos
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json, {"message": "User registered!"})
-        user_cache = self.authManager.cache_service.get_user(self.johana.username)
-        self.assertEqual(user_cache.token, self.johana.token)
-        self.assertEqual(user_cache.username, self.johana.username)
-        user_db = self.authManager.user_service.get_by_username(self.johana.username)
-        self.assertEqual(user_db.token, self.johana.token)
-        self.assertEqual(user_db.username, self.johana.username)
-        self.assertEqual(user_db.identityProviderId, self.johana.identityProviderId)
-
+        self.mock_asserts(response, 201, {"message": "User registered!"}, self.johana.username, self.johana.token)
 
     @patch('src.infraestructure.adapters.outbound.oauth.requests.get')
     def test_existing_user_role_checks(self, mock_get):
-        self.mock_response(self.johana.username, mock_get)
+        json = {
+            'email': self.johana.username,
+            'email_verified': "false",
+            "expires_in": "3567",
+            "avatar_url": "https://www.google.com/authentic/userinfo.email"
+        }
+        headers = {'Authorization': f"Bearer {self.johana.token}"}
+        self.mock_response(mock_get, self.johana.identity_provider.tokenValidationUrl,
+            json)
 
         response = self.client.get('/api/my-roles', json={}, headers={
                 'token': self.johana.token,
@@ -146,20 +144,8 @@ class TestAuthFlows(TestConfigInfraestructure):
         
         # Validar la respuesta
         self.assertEqual(response.status_code, 200)
-        roles_dict = json.loads(json.dumps(response.json))
+        roles_dict = response.json
         self.assertEqual(roles_dict[0]["name"], self.johana.roles[0].name)
         self.assertEqual(roles_dict[0]["description"], self.johana.roles[0].description)
         self.assertEqual(roles_dict[1]["name"], self.johana.roles[1].name)
         self.assertEqual(roles_dict[1]["description"], self.johana.roles[1].description)
-
-    def mock_response(self, username, mock_get):
-        # Define a mock response object with the attributes you need
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.json = {
-            'email': username,
-            'email_verified': "true",
-            "expires_in": "3568",
-            "scope": "openid https://www.googleapis.com/auth/userinfo.email"
-        }
-        mock_get.return_value = mock_response
