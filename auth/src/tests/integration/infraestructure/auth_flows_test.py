@@ -2,6 +2,7 @@ from src.tests.integration.infraestructure.testconfig_infr import TestConfigInfr
 from src.application.usecases.authManager import AuthManager
 from unittest.mock import MagicMock, patch
 import unittest
+import json
 
 class TestAuthFlows(TestConfigInfraestructure):
     def setUp(self):
@@ -33,18 +34,6 @@ class TestAuthFlows(TestConfigInfraestructure):
         })
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json, {"message": "Altered credentials"})
-    
-    def mock_response(self, username, mock_get):
-        # Define a mock response object with the attributes you need
-        self.mock_response = MagicMock()
-        self.mock_response.status_code = 200
-        self.mock_response.json = {
-            'email': username,
-            'email_verified': "true",
-            "expires_in": "3568",
-            "scope": "openid https://www.googleapis.com/auth/userinfo.email"
-        }
-        mock_get.return_value = self.mock_response
 
     @patch('src.infraestructure.adapters.outbound.oauth.requests.get')
     def test_invalid_user_in_cache_token_no_matched_Google_validation(self, mock_get):
@@ -140,11 +129,37 @@ class TestAuthFlows(TestConfigInfraestructure):
         self.assertEqual(user_db.identityProviderId, self.johana.identityProviderId)
 
 
+    @patch('src.infraestructure.adapters.outbound.oauth.requests.get')
+    def test_existing_user_role_checks(self, mock_get):
+        self.mock_response(self.johana.username, mock_get)
 
+        response = self.client.get('/api/my-roles', json={}, headers={
+                'token': self.johana.token,
+                'username': self.johana.username,
+                'identity_provider_id': self.johana.identityProviderId
+            })
+        
+        # Validar el request con los parámetros correctos
+        mock_get.assert_called_once_with(
+            self.johana.identity_provider.tokenValidationUrl,
+            headers={'Authorization': f"Bearer {self.johana.token}"})
+        
+        # Validar la respuesta
+        self.assertEqual(response.status_code, 200)
+        roles_dict = json.loads(json.dumps(response.json))
+        self.assertEqual(roles_dict[0]["name"], self.johana.roles[0].name)
+        self.assertEqual(roles_dict[0]["description"], self.johana.roles[0].description)
+        self.assertEqual(roles_dict[1]["name"], self.johana.roles[1].name)
+        self.assertEqual(roles_dict[1]["description"], self.johana.roles[1].description)
 
-
-
-
-
-
-    
+    def mock_response(self, username, mock_get):
+        # Define a mock response object with the attributes you need
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json = {
+            'email': username,
+            'email_verified': "true",
+            "expires_in": "3568",
+            "scope": "openid https://www.googleapis.com/auth/userinfo.email"
+        }
+        mock_get.return_value = mock_response

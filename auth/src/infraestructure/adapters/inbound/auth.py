@@ -1,52 +1,36 @@
-from src.application.usecases.authManager import AuthManager
-from src.infraestructure.adapters.outbound.oauth import OAuthProviderFlows 
+from src.application.usecases.authDecorators import AuthDecorators
 from flask import request, jsonify
+import json
 
 class AuthAdapter:
     def __init__(self, app):
         self.app = app
-        self.auth_manager = AuthManager()                   #Capa de persistencia
-        self.oauth_provider_flows = OAuthProviderFlows()    #Servicios externos
+        self.auth_decorators = AuthDecorators()             #Decoradores
+        self.auth_manager = self.auth_decorators.auth_manager
         self.setup_routes()
     
     def setup_routes(self):
         self.app.route("/api/validate-creds", methods=["POST"])(self.validate_creds)
+        self.app.route("/api/my-roles", methods=["GET"])(self._apply_decorators(self.my_roles, self.auth_decorators.auth_required()))
 
     def validate_creds(self):
         username, token, identity_provider_id = self._get_vars(request.json)
-        valid_creds = self.auth_manager.valid_credentials(username,token)
-        valid_user, user = self.auth_manager.validate_user_against_cache(username,token)
-        valid_token_date = self.auth_manager.validate_token_date(user)
-        return self._validation_flows(username, user, token, identity_provider_id, valid_creds, valid_user, valid_token_date)
+        return self.auth_manager.auth_validation_flows(username, token, identity_provider_id)
+    
+    def my_roles(self):
+        username, token, identity_provider_id = self.auth_decorators._header_variables(request.headers)
+        message, status_code = self.auth_decorators._validate_headers(username, token, identity_provider_id)
+        if status_code != 200:
+            return jsonify(message), status_code
+        roles = self.auth_manager.user_service.get_roles(username)
+        return jsonify([role.to_dict() for role in roles]), 200
     
     def _get_vars (self, body):
         return body["username"], body["token"], body["identity_provider_id"]
-
-    def _validation_flows(self, username, user, token, identity_provider_id, valid_creds, valid_user, valid_token_date):
-        if valid_creds and valid_user and valid_token_date:
-            return {"message": "Credentials are valid"}, 200
-        elif not valid_creds:
-            return {"message": "Altered credentials"}, 400
-        elif not valid_user:
-            #El usuario no se encontró en el caché. Es probable que sea un nuevo usuario
-            json, status_code = self._oauth_verification_flow(username, user, token, identity_provider_id)
-            return json, status_code
-        elif not valid_token_date:
-            return {"message": "Expired token"}, 401
-        return {"message": "Invalid token"}, 401
     
-    def _oauth_verification_flow(self, username, user, token, identity_provider_id):
-        # Se valida el token con el proveedor de identidad
-        new_user = False
-        if user is not None:
-            tokenValidationUrl = user.identity_provider.tokenValidationUrl
-        else:
-            new_user = True
-            user = self.auth_manager.user_service.temporal_user(username, token, identity_provider_id)
-            tokenValidationUrl = self.auth_manager.identity_provider_service.get_by_id(identity_provider_id).tokenValidationUrl
-        status_code, json = self.oauth_provider_flows.token_validation(token, tokenValidationUrl)
-        # Se evalúa la respuesta del proveedor de identidad
-        json, status_code = self.auth_manager.validate_idp_request(user, token, status_code, json, new_user)
-        return json, status_code
+    def _apply_decorators(self, func, *decorators):
+        for decorator in decorators:
+            func = decorator(func)
+        return func
 
     

@@ -58,6 +58,10 @@ class UserService:
         db.session.commit()
         return user
     
+    def get_roles(self, username):
+        user = self.get_by_username(username)
+        return user.roles
+    
     def has_role(self, user, role):
         return role in user.roles
 
