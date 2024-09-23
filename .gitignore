@@ -1,6 +1,7 @@
 auth/env
 auth/instance
 auth/.coverage
+auth/.env
 auth/coverage.xml
 auth/env_vars.yaml
 auth/db_files/init/init_idps.sql

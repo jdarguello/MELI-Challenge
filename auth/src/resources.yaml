@@ -1,7 +1,3 @@
-config:
-  env: tests
-  type: integration
-
 tests:
   testing: true
   track_modifications: true

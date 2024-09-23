@@ -37,6 +37,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
         working-directory: ./auth
+      
+      - name: Adecuate env variables
+        run: |
+          echo "env=tests" > .env
+          echo "type=integration" >> .env
+          cat .env
+        working-directory: ./auth
 
       - name: Run tests with coverage
         run: |

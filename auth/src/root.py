@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
 import redis
 import yaml
 
@@ -44,6 +46,7 @@ class Config:
 
 # Lectura de variables de entorno
 def get_env():
+    load_dotenv()
     with open("src/resources.yaml", "r") as f:
         return yaml.safe_load(f)
     
@@ -52,7 +55,10 @@ def get_env():
 def get_env_vars(variables=None):
     args = get_env()
     if variables is None:
-        variables = args["config"]
+        variables = {
+            "env": os.getenv("env"),
+            "type": os.getenv("type")
+        }
     if variables["env"] != "prod":
         return set_env_vars(args, variables, "cache" in args[variables["env"]][variables["type"]])
     return args["prod"]
