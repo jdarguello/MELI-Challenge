@@ -3,6 +3,7 @@ from src.application.usecases.userService import UserService
 from src.application.usecases.identity_provider_service import IdentityProviderService
 from src.infraestructure.adapters.outbound.oauth import OAuthProviderFlows
 from flask import request, jsonify
+import json
 
 # Objetivo: validar la integridad de las credenciales del usuario, contrastarlo con el cache y, si es necesario, con la bd relacional
 class AuthManager:
@@ -81,6 +82,7 @@ class AuthManager:
         return json, status_code
     
     def get_idp_username(self, json):
+        print(json)
         if 'email' in json:
             return json['email']    #Google
         elif 'login' in json:

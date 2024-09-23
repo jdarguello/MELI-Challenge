@@ -39,6 +39,7 @@ class TestConfigApplication(TestConfig):
             {"username": "jon_doe@example.com", "token": "2234eu3n2j23", "identity_provider_id": self.idps[0]["identityProviderId"]},
             {"username": "johana@example.com", "token": "2jn33h3h33j3j", "identity_provider_id": self.idps[1]["identityProviderId"]},
             {"username": "susan@example.com", "token": "2jn33h3h33j3j",  "identity_provider_id": self.idps[1]["identityProviderId"]},
+            {"username": "juanda@example.com", "token": "2234eu3n2j23", "identity_provider_id": self.idps[0]["identityProviderId"]}
         ]
         
 

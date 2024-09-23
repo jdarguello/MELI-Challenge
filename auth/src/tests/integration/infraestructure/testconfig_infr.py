@@ -10,7 +10,9 @@ class TestConfigInfraestructure(TestConfigCache):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        App()   # Inicializar las rutas de la aplicación
+        if not App.have_instance:
+            App()   # Inicializar las rutas de la aplicación
+            App.have_instance = True
 
     def setUp(self):
         super().setUp()

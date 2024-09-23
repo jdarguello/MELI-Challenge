@@ -1,17 +1,23 @@
 from src.application.usecases.authDecorators import AuthDecorators
-from flask import request, jsonify
+from flask import request, jsonify, Blueprint
+from src.root import app
 import json
 
+auth_bp = Blueprint('auth_bp', __name__)
+
 class AuthAdapter:
-    def __init__(self, app):
+    have_instance = False
+    def __init__(self):
         self.app = app
         self.auth_decorators = AuthDecorators()             #Decoradores
         self.auth_manager = self.auth_decorators.auth_manager
         self.setup_routes()
+        
+        self.have_instance = True
     
     def setup_routes(self):
         self.app.route("/api/validate-creds", methods=["POST"])(self.validate_creds)
-        self.app.route("/api/my-roles", methods=["GET"])(self._apply_decorators(self.my_roles, self.auth_decorators.auth_required()))
+        self.app.route("/api/my-roles", methods=["GET"])(self.auth_decorators.apply_decorators(self.my_roles, self.auth_decorators.auth_required()))
 
     def validate_creds(self):
         username, token, identity_provider_id = self._get_vars(request.json)
@@ -27,10 +33,5 @@ class AuthAdapter:
     
     def _get_vars (self, body):
         return body["username"], body["token"], body["identity_provider_id"]
-    
-    def _apply_decorators(self, func, *decorators):
-        for decorator in decorators:
-            func = decorator(func)
-        return func
 
-    
+auth_adapter = AuthAdapter()
