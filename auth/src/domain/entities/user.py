@@ -5,13 +5,13 @@ from datetime import datetime, timedelta
 
 class User(db.Model):
     __tablename__ = 'app_user'
-    userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    userId = db.Column("userid", db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255), nullable=False)
     token = db.Column(db.String(255), nullable=False)
-    tokenExpiryStart = db.Column(db.DateTime, nullable=False)
+    tokenExpiryStart = db.Column("tokenexpirystart", db.DateTime, nullable=False)
 
     # Nullable foreign key to IdentityProvider
-    identityProviderId = db.Column(db.Integer, db.ForeignKey('identity_provider.identityProviderId'), nullable=True)
+    identityProviderId = db.Column("identityproviderid", db.Integer, db.ForeignKey('identity_provider.identityproviderid'), nullable=True)
 
     # Relationship to IdentityProvider
     identity_provider = db.relationship('IdentityProvider', back_populates='users', lazy='joined')

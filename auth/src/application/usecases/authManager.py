@@ -28,9 +28,7 @@ class AuthManager:
             #El usuario no se encontró en el caché. Es probable que sea un nuevo usuario
             json, status_code = self._oauth_verification_flow(username, user, token, identity_provider_id)
             return json, status_code
-        elif not valid_token_date:
-            return {"message": "Expired token"}, 401
-        return {"message": "Invalid token"}, 401
+        return {"message": "Expired token"}, 401
     
     def _oauth_verification_flow(self, username, user, token, identity_provider_id):
         # Se valida el token con el proveedor de identidad
@@ -67,7 +65,7 @@ class AuthManager:
     
     def validate_idp_request(self, user, token, status_code, json, new_user=False):
         # Obtención del username
-        idp_username = self.get_idp_username(json)
+        idp_username, username_word = self.get_idp_username(json)
         if status_code == 200 and user.username == idp_username:
             #El token es válido, se registra el usuario en caché y en la bd
             user.token = token
@@ -76,18 +74,17 @@ class AuthManager:
             if new_user:
                 return {"message": "User registered!"}, 201
             return {"message": "Token Updated"}, 202
-        elif status_code == 200 and user.username != json['email']:
+        elif status_code == 200 and user.username != json[username_word]:
             #El token es válido, pero el usuario no coincide con el token
             return {"message": "Security Risk"}, 401
         return json, status_code
     
     def get_idp_username(self, json):
-        print(json)
-        if 'email' in json:
-            return json['email']    #Google
-        elif 'login' in json:
-            return json['login']    #GitHub
-        return None
+        if 'email' in json and json['email'] is not None:
+            return json['email'], 'email'    #Google
+        elif 'login' in json and json['login'] is not None:
+            return json['login'], 'login'    #GitHub
+        return None, "none"
     
     def get_user_roles(self, username):
         roles = self.user_service.get_roles(user.username)

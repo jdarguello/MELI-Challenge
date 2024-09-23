@@ -17,7 +17,7 @@ tests:
       db: 0
   functional:
     db:
-      uri: postgresql://test_user:test123@localhost/meli-challenge
+      uri: postgresql://test_user:test123@localhost:5432/meli-challenge
       secret: secret
       host: localhost
       port: 5432

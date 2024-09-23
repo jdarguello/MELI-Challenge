@@ -1,7 +1,8 @@
 from src.domain.services.identity_provider import IdentityProvider
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import text
 from flask import request, jsonify
-from src.root import db
+from src.root import db, app
 
 class IdentityProviderService:
     def create(self, **kwargs):
@@ -11,6 +12,8 @@ class IdentityProviderService:
         return new_idp
     
     def get_by_id(self, id):
+        # Check connection at startup
+        
         return db.session.query(IdentityProvider).filter_by(identityProviderId=id).first()
     
     def get_by_name(self, name):
@@ -34,7 +37,7 @@ class IdentityProviderService:
             if idp is not None:
                 return {"message": "Identity Provider already exists"}, 400
             idp = self.create(**body)
-            return jsoniify(idp.to_dict()), 201
+            return jsonify(idp.to_dict()), 201
         if method == "PUT":
             message, status_code, valid = self._idp_args_validation(body, idp)
             if not valid:

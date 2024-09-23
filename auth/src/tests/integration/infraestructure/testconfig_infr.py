@@ -2,7 +2,7 @@ from src.tests.integration.application.testconfig_cache import TestConfigCache
 from src.application.usecases.authManager import AuthManager
 from src.root import app
 from src.app import App
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, Mock
 import unittest
 import json
 
@@ -25,7 +25,7 @@ class TestConfigInfraestructure(TestConfigCache):
         # Define a mock response object with the attributes you need
         mock_response = MagicMock()
         mock_response.status_code = status_code
-        mock_response.json = json
+        mock_response.json = Mock(return_value=json)
         mock_get.return_value = mock_response
 
         # Validar el request con los parámetros correctos

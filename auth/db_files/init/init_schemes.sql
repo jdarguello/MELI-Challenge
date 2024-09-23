@@ -47,7 +47,7 @@ CREATE TABLE app_user (
     userId SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     token VARCHAR(255) NOT NULL,
-    tokenExpiryStart DATE NOT NULL,
+    tokenExpiryStart TIMESTAMP NOT NULL,
     identityProviderId INTEGER,
     FOREIGN KEY (identityProviderId) REFERENCES identity_provider(identityProviderId)
 );

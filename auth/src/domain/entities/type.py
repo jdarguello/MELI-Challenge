@@ -4,7 +4,7 @@ from src.domain.entities.permission import Permission
 from src.domain.entities.type_permission import type_permission
 
 class Type(db.Model):
-    typeId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    typeId = db.Column("typeid", db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=False)  
     description = db.Column(db.Text, nullable=False)  
     weight = db.Column(db.Integer, default=1)  

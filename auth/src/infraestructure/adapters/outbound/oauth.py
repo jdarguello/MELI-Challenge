@@ -7,4 +7,4 @@ class OAuthProviderFlows:
             provider_url,
             headers={'Authorization': f'Bearer {token}'}
         )
-        return response.status_code, response.json
+        return response.status_code, response.json()

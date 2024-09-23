@@ -6,14 +6,11 @@ import json
 auth_bp = Blueprint('auth_bp', __name__)
 
 class AuthAdapter:
-    have_instance = False
     def __init__(self):
         self.app = app
         self.auth_decorators = AuthDecorators()             #Decoradores
         self.auth_manager = self.auth_decorators.auth_manager
         self.setup_routes()
-        
-        self.have_instance = True
     
     def setup_routes(self):
         self.app.route("/api/validate-creds", methods=["POST"])(self.validate_creds)

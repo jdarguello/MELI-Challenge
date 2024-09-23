@@ -65,9 +65,9 @@ class UserService:
     def has_role(self, user, role):
         return role in user.roles
 
-    def update(self, user_id, email=None, token=None):
+    def update(self, user_id, username=None, token=None, token_expiry_start=None):
         user = self.get_by_id(user_id)
-        for attr in [("email", email), ("token", token)]:
+        for attr in [("username", username), ("token", token), ("tokenExpiryStart", token_expiry_start)]:
             if attr[1] is not None:
                 setattr(user, attr[0], attr[1])
         db.session.commit()
@@ -80,7 +80,7 @@ class UserService:
             user = None
         if user is None:
             return self.create(username, token, identity_provider_id)
-        return self.update(user.userId, token=token)
+        return self.update(user.userId, token=token, token_expiry_start=datetime.now())
 
     def delete(self, user_id):
         user = self.get_by_id(user_id)
