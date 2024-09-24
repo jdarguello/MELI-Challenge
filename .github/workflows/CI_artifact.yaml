@@ -17,7 +17,7 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          docker build -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/meli:${{ github.sha }} .
+          docker buildx build --platform linux/amd64 -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/meli:${{ github.sha }} .
         working-directory: ./auth
       
       - name: Login to Docker Hub
