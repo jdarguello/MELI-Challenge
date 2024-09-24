@@ -12,13 +12,13 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          docker build -t docker.io/${{ vars.DOCKER_HUB_USERNAME }}/MELI:${{ github.sha }} .
+          docker build -t docker.io/${{ vars.DOCKER_HUB_USERNAME }}/meli:${{ github.sha }} .
         working-directory: ./auth
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          image-ref: 'docker.io/${{ vars.DOCKER_HUB_USERNAME }}/MELI:${{ github.sha }}'
+          image-ref: 'docker.io/${{ vars.DOCKER_HUB_USERNAME }}/meli:${{ github.sha }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
