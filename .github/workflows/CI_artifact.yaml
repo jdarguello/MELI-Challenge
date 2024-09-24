@@ -26,10 +26,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        
+      - name: Change directory
+        run: cd ./auth
       
       - name: Build and push
         uses: docker/build-push-action@v6
-        working-directory: ./auth
         with:
           platforms: linux/amd64,linux/arm64
           push: true
