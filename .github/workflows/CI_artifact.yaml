@@ -11,6 +11,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./auth
     steps:
       -
         name: Set up QEMU
@@ -28,6 +31,5 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./auth
           push: true
           tags: user/app:latest
