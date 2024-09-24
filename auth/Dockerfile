@@ -2,7 +2,6 @@
 FROM python:3.12-alpine
 
 # Instalación de dependencias, incluyendo los archivos de desarrollo de PostgreSQL
-# Add the community repository to access additional packages
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 
@@ -27,5 +26,5 @@ RUN pip install --user --no-cache-dir -r requirements.txt
 
 # Correr la aplicación
 EXPOSE 5000
-#CMD ["python3", "main.py", "--host=0.0.0.0"]
-CMD ["gunicorn", "-w", "4", "-t", "2", "-b", "0.0.0.0:5000", "src.root:app"]
+CMD ["python3", "main.py", "--host=0.0.0.0"]
+#CMD ["gunicorn", "-w", "4", "-t", "2", "-b", "0.0.0.0:5000", "src.root:app"]

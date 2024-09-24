@@ -11,7 +11,7 @@ import yaml
 # Configuración de la aplicación y base de datos
 class Config:
     def __init__(self, env):
-        self.TESTING = env["testing"]   #ERROR!!
+        self.TESTING = env["testing"]
         self.SQLALCHEMY_DATABASE_URI = env["db"]["uri"]
         self.SQLALCHEMY_TRACK_MODIFICATIONS = env["track_modifications"]
         self.SECRET_KEY = env["db"]["secret"]
