@@ -30,6 +30,7 @@ jobs:
   CI_docs:
     needs: CI_artifact
     permissions:
+      contents: read
       pages: write
       id-token: write
     uses: jdarguello/MELI-Challenge/.github/workflows/docs-deploy.yaml@main
