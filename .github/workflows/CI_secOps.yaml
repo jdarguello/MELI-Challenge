@@ -7,44 +7,22 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Install Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.repository }}:${{ github.sha }} .
+        working-directory: ./auth
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
         with:
-          python-version: '3.9' # Set the version of Python as required
-
-      # Install Trivy
-      - name: Install Trivy
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update -y
-          sudo apt-get install -y trivy
-
-      # Install Python dependencies (assuming a requirements.txt file is present)
-      - name: Install Dependencies
-        run: |
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          fi
-
-      # Scan Python dependencies for vulnerabilities
-      - name: Scan Python Dependencies with Trivy
-        run: |
-          trivy fs --exit-code 1 --severity HIGH,CRITICAL --scanners vuln .
-
-      # Build Docker image
-      - name: Build Docker Image
-        run: docker build -t my-image:latest .
-
-      # Scan Docker image for vulnerabilities
-      - name: Scan Docker Image with Trivy
-        run: trivy image --exit-code 1 --severity HIGH,CRITICAL my-image:latest
+          image-ref: 'docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.repository }}:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
 
       

@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-
   CI_quality:
     uses: jdarguello/MELI-Challenge/.github/workflows/CI_quality.yaml@main
     secrets:
@@ -14,8 +13,8 @@ jobs:
       SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
       SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
 
-  #CI_secOps:
-  #  uses: jdarguello/MELI-Challenge/.github/workflows/CI_secOps.yaml@main
+  CI_secOps:
+    uses: jdarguello/MELI-Challenge/.github/workflows/CI_secOps.yaml@main
 
   #CI_docs:
   #  uses: jdarguello/MELI-Challenge/.github/workflows/docs-deploy.yaml@main
