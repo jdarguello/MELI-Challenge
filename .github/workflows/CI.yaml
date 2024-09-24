@@ -15,8 +15,20 @@ jobs:
 
   CI_secOps:
     uses: jdarguello/MELI-Challenge/.github/workflows/CI_secOps.yaml@main
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
-  #CI_docs:
-  #  uses: jdarguello/MELI-Challenge/.github/workflows/docs-deploy.yaml@main
+  CI_artifact:
+    needs: 
+      - CI_quality
+      - CI_secOps
+    uses: jdarguello/MELI-Challenge/.github/workflows/CI_artifact.yaml@main
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+  CI_docs:
+    needs: CI_artifact
+    uses: jdarguello/MELI-Challenge/.github/workflows/docs-deploy.yaml@main
 
   
