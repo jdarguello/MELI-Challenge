@@ -33,4 +33,4 @@ jobs:
           context: ./auth 
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: user/app:latest
+          tags: jdarguello10/meli:latest
