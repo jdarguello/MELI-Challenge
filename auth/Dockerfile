@@ -1,5 +1,5 @@
 # Imagen minimalista
-FROM python:3.12-alpine
+FROM python:3.12-alpine as build
 
 # Instalación de dependencias, incluyendo los archivos de desarrollo de PostgreSQL
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
