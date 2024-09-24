@@ -17,7 +17,6 @@ tests:
       db: 0
   functional:
     db:
-      uri: ${{ DB_URI_TEST }} 
       secret: ${{ DB_SECRET_TEST }}
       host: ${{ DB_HOST_TEST }}
       port: ${{ DB_PORT_TEST }}
@@ -35,7 +34,6 @@ prod:
   debug: false
   data:
     db:
-      uri: ${{ DB_URI_PROD }} 
       secret: ${{ DB_SECRET_PROD }}
       host: ${{ DB_HOST_PROD }}
       port: ${{ DB_PORT_PROD }}

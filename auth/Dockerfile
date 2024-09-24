@@ -8,8 +8,8 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositor
 # Update the package index and install dependencies
 RUN apk update && apk add --no-cache \
     curl \
-    gcc \
     g++ \
+    gcc \
     musl-dev \
     postgresql-dev
 

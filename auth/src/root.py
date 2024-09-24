@@ -84,6 +84,9 @@ def set_prod_vars(args, variables, cache):
         for key, value in args[section].items():
             value = os.getenv(value.split(" ")[1])
             args[section][key] = value
+    db = args["db"]
+    db["uri"] = "postgresql://" + db["user"] + ":" + db["password"] + "@" + \
+        db["host"] + "/" + db["database"]
     return args
 
 # Inicialización de la aplicación y de la base de datos
