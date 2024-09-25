@@ -3,13 +3,10 @@ name: Despliegue en EKS Dev
 on:
   workflow_call:
     secrets:
-        SONAR_TOKEN:
+        AWS_ACCESS_KEY_ID: 
           required: true
-        SONAR_ORGANIZATION:
+        AWS_SECRET_ACCESS_KEY:
           required: true
-        SONAR_PROJECT_KEY:
-          required: true
-
 jobs:
   enable-infraestructure:
     name: terraform-push
