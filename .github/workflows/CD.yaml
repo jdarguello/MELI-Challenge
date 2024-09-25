@@ -8,7 +8,7 @@ on:
 
 jobs:
   CD_Dev:
-    uses: jdarguello/MELI-Challenge/.github/workflows/CI_quality.yaml@main
+    uses: jdarguello/MELI-Challenge/.github/workflows/CD_Dev.yaml@main
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
