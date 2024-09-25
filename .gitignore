@@ -4,4 +4,11 @@ auth/.coverage
 auth/.env
 auth/coverage.xml
 auth/env_vars.yaml
-auth/db_files/init/init_idps.sql
+infraestructure/db_files/init/init_idps_secret.sql
+infraestructure/dev/.terraform/
+infraestructure/dev/.terraform.lock.hcl
+.terraform/
+*.tfstate
+*.tfstate.*
+*.backup
+crash.log

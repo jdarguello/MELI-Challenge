@@ -1,0 +1,59 @@
+name: Despliegue en EKS Dev
+
+on:
+  workflow_call:
+    secrets:
+        SONAR_TOKEN:
+          required: true
+        SONAR_ORGANIZATION:
+          required: true
+        SONAR_PROJECT_KEY:
+          required: true
+
+jobs:
+  enable-infraestructure:
+    name: terraform-push
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        working-directory: ./infraestructure/dev/
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7 # Specify your desired Terraform version
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Validate Terraform files
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=tfplan
+        continue-on-error: false
+
+      - name: Show Terraform Plan
+        if: always()
+        run: terraform show -no-color tfplan
+
+      - name: Apply Terraform (Auto-approve)
+        if: github.ref == 'refs/heads/main' && steps.plan.outcome == 'success'
+        run: terraform apply -auto-approve tfplan
+  
