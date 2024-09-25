@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Intro
 
-El Ciclo de Vida del Desarrollo de Software (SDLC, por sus siglas en inglés) se trata de un framework que define las etapas de planeación y diseño de la __Arquitectura de Software__; definición de los estándares de _calidad_ y _seguridad_ del código mediante estrategias de _testing_; y definición de la estrategia de _packaging_ para las estrategias de deployment de artefactos en ambientes pre-productivos y productivos, como se resume en la siguiente Figura 1.
+El Ciclo de Vida del Desarrollo de Software (SDLC, por sus siglas en inglés) se trata de un framework que define las etapas de planeación y diseño de la __Arquitectura de Software__; definición de los estándares de _calidad_ y _seguridad_ del código mediante estrategias de _testing_; y definición de la estrategia de _packaging_ para las estrategias de deployment de artefactos en ambientes pre-productivos y productivos, como se resume en la Figura 1.
 
 <img src="../../img/SDLC.png" width="300px" />
 
@@ -24,7 +24,18 @@ Para la ejecución de este proyecto en local, puedes hacerlo o _clonando el repo
 
 ### 1.1. Clonar el repositorio
 
-Lo primero es clonar el repositorio
+Para clonar el repositorio, ejecutamos el siguiente comando: 
+
+```sh
+git clone https://github.com/jdarguello/MELI-Challenge
+```
+
+El proyecto se compone de las siguientes carpetas principales:
+
+* `.github`: pipelines CI/CD en GitHub Actions.
+* `auth`: código fuente del microservicio.
+* `docs`: documentación técnica del proyecto.
+* `infraestructure`: archivos SQL base para la adecuación de las bases de datos, tanto para pruebas funcionales en _local_ como en _dev_. Además, contiene los archivos __Terraform__ para despliegue de recursos de infraestructura en AWS.
 
 
 ### 1.2. Bases de Datos
@@ -54,20 +65,31 @@ Esta base de datos de pruebas ya está pre-configurada en la aplicación para se
 * __Nombre de usuario:__ test_user
 * __Contraseña:__ test123
 
-Ahora, deberías popular esta base de datos con información base para que puedas hacer pruebas de integración y de funcionalidades básicas, incluyendo flujos de _aprobación_ y _denegación_. Te puedes apoyar con los archivos pre-construidos que encontrarás en la carpeta `db_files`, dónde es sólo copiar los comandos SQL y ejecutarlos en DBeaver. Los archivos `common_queries.sql` e `init_data.sql` los encontrarás en la siguiente ubicación.
+Ahora, deberías popular esta base de datos con información base para que puedas hacer pruebas de integración y de funcionalidades básicas, incluyendo flujos de _aprobación_ y _denegación_. Te puedes apoyar con los archivos pre-construidos que encontrarás en la carpeta `db_files`, dónde es sólo ejecutar los comandos SQL para adecuar la base de datos para testing. Los archivos los encontrarás en la siguiente ubicación.
 
 ```bash
 /MELI-CHALLENGE
 ├── /.github
 ├── /assets
-├── /auth
+├── /infraestructure
 │   ├── /db_files
-│   │   └── common_queries.sql
-│   │   ├── init_data.sql
-│   ├── /src
+|   |   ├── /init
+|   |   |   └── init_schemes.sql
+|   |   |   └── init_idps.sql
+|   |   ├── /testing
+|   |   |   └── init_app_users.sql
+|   |   |   └── init_data.sql
+|   |   |   └── super_user.sql
 │   ├── main.py
 │   ├── README.md
 ```
+
+El orden de ejecución debería ser:
+
+1. Habilitar los esquemas con `init_schemes.sql`. Con esto, la base de datos ya estará poblada con todas las tablas que necesita.
+2. Habilitar los _proveedores de identidad_, Google y GitHub, ejecutando `init_idps.sql`.
+3. Para tareas de testing, se puede poblar las tablas con información de ejemplo, empezando por `init_data.sql`, que contiene data genérica pre-configurada (algunos permisos, tipos, scopes y roles por default).
+4. Si se desea, podremos poblar la base de datos con usuarios de ejemplo. Para ello, ejecutar: `init_app_users.sql`. Adicional, si se desea darles permisos de _super user_, ejecutar `super_user.sql`.
 
 ### 1.3. Caché
 
@@ -79,13 +101,19 @@ docker run -d --name redis_MeLi -p 6379:6379 -it redis/redis-stack:latest
 
 ### 1.4. Contenedor local
 
-Puedes generar un contenedor de este desarrollo en local con Docker. En primera instancia, tendrás que clonar el repositorio, acorde a lo establecido en el capítulo 1.1. Luego, sólo debes correr el siguiente comando.
+Puedes generar un contenedor de este desarrollo en local con Docker. En primera instancia, tendrás que clonar el repositorio, acorde a lo establecido en el capítulo 1.1. Luego, en la carpeta `auth`, generas el _build_ de la siguiente forma:
 
 ```sh
-docker run ...
+docker build -t meli .
 ```
 
-Con esta configuración, el contenedor con la solución podrá comunicarse con la base de datos (ver 1.2) y con el caché (ver 1.3)
+Con ello, crearemos la imagen docker, llamada _"meli"_. Puedes crear un contenedor de este proyecto ejecutando:
+
+```sh
+docker run -d --name meli-micro -p 5000:5000 meli
+```
+
+Para el desarrollo de pruebas contenerizadas, se recomienda que se cree el contenedor dentro de un Clúster de Kubernetes. Ver más detalles en la sección __[Cloud Native](../cloud/intro.md)__. 
 
 
 ## 2. Requerimientos Base

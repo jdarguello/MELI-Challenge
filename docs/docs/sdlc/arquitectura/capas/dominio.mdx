@@ -2,7 +2,7 @@
 
 Figura 3. Arquitectura del Dominio: Entidades y Servicios.
 
-### Entities
+### 1.1. Entities
 
 En la Figura 3, se aprecia la traducción de las necesidades del negocio, en términos de autenticación/autorización, a través de una experiencia centrada en el _usuario_.
 
@@ -14,7 +14,7 @@ El argumento `weight` del tipo de rol permite __jerarquizar__ el rol. Por ejempl
 
 Por otro lado, el gobierno de los permisos de un rol están definidos dentro de un _scope_. De esta forma, se garantiza la independencia de las diferentes áreas de la empresa, pero permitiendo la existencia de usuarios con roles en más de un área.
 
-### Services
+### 1.2. Services
 
 Una de las principales necesidades del problema es tercerizar la autenticación mediante protocolo OAuth, razón por la que en la Figura 3 se propone la gestión de objetos tipo `IdentityPlatform`. Estas plataformas pueden ser diferentes entidades de confianza, como GMail, Facebook, GitHub y Azure AD, entre otros.
 
