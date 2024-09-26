@@ -38,7 +38,7 @@ Figura 12. Beneficios de implementar tests de integración. Fuente: https://lits
 
 Como se comentó anteriormente, la cobertura del código fuente, alcanzada mediante pruebas unitarias, no es en sí mismo un factor concluyente de que el código fuente sea _"de alta calidad"_. Además de la automatización que proveen los LLMs para incrementar los niveles de cobertura, existen diferentes formas prácticas que incrementan esta métrica sin ejecutar las comparaciones necesarias que garanticen las funcionalidades base. 
 
-En desarrollo de software, estas malas prácticas se ejecutan para _"burlar"_ los controles y entregar resultados rápidos. El Mutation Testing nace como respuesta a ello. Se tratan de pruebas que corroboran la integridad en la estructura de los test unitarios. Altos niveles de cobertura en conjunto con altos estándares en Mutation Testing garantizan la integridad en las pruebas unitarias elaboradas y, en consecuencia, una alta calidad en el código fuente.
+EL Mutation Testing se trata de pruebas que corroboran la integridad en la estructura de los test unitarios. Altos niveles de cobertura en conjunto con altos estándares en Mutation Testing garantizan la integridad en las pruebas unitarias elaboradas y, en consecuencia, una alta calidad en el código fuente.
 
 El Mutation Testing consiste en hacer cambios controlados sobre el código fuente, de forma automática, verificando que los test uniarios establecidos fallen de forma intencionada; garantizando así la integridad de los test unitarios y de integración. 
 

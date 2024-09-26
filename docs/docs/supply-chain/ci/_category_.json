@@ -1,0 +1,9 @@
+{
+    "label": "CI",
+    "position": 2,
+    "link": {
+      "type": "generated-index",
+      "description": "Prácticas de Integración Continua."
+    }
+  }
+  

@@ -2,6 +2,7 @@ tests:
   testing: true
   track_modifications: true
   debug: true
+  csrf-secret: secret
   unit:
     db:
       uri: sqlite:///:memory?check_same_thread=False
@@ -32,6 +33,7 @@ prod:
   testing: false
   track_modifications: false
   debug: false
+  csrf-secret: ${{ CSRF_SECRET_PROD }}
   data:
     db:
       secret: ${{ DB_SECRET_PROD }}

@@ -88,12 +88,6 @@ const config: Config = {
           position: 'left',
           label: 'Cloud Native',
         },
-        {
-          type: 'docSidebar',
-          sidebarId: 'auditSidebar',
-          position: 'left',
-          label: 'Auditoría',
-        },
         //{to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/jdarguello/MELI-Challenge',
